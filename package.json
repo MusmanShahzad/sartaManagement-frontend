@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node server.js",
+    "build": "ng build --prod --build-optimizer && gzipper --verbose ./dist",
+    "gzipper":"gzipper --verbose ./dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -33,6 +34,7 @@
     "feather-icons": "^4.26.0",
     "graphql": "^15.0.0",
     "graphql-codegen": "^0.4.0",
+    "gzipper": "^3.7.0",
     "ngx-skeleton-loader": "^2.0.0",
     "ngx-toastr": "^12.0.1",
     "relay-compiler": "^9.1.0",
@@ -42,7 +44,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.1",
+    "@angular-devkit/build-angular": "^0.901.7",
     "@angular/cli": "~9.0.1",
     "@angular/compiler-cli": "~9.0.0",
     "@angular/language-service": "~9.0.0",
