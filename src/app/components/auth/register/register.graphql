@@ -1,0 +1,19 @@
+mutation RegisterUser($name:String,$email:String,$password:String,$userType:Int){
+  RegisterUser(name:$name,email:$email,password:$password,userType:$userType){
+    Errors{
+      error
+      message
+    }
+    Data{
+      user{
+        _id
+        name
+        email
+        userType
+        createdDate
+        status
+      }
+      token
+    }
+  }
+}

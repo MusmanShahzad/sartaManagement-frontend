@@ -1,0 +1,32 @@
+mutation UpdateBuilding($name:String,$address:String,$room:[roomsInput],$id:ID){
+ UpdateBuilding(name:$name,address:$address,rooms:$room,id:$id){
+  Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      name
+      address
+      ownersId{
+        _id
+      }
+    }
+}
+}
+mutation AddBuilding($name:String,$address:String,$rooms:[roomsInput]){
+  AddBuilding(name:$name,address:$address,rooms:$rooms){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      name
+      address
+      ownersId{
+        _id
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <form [formGroup]="AddBuildingForm">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" formControlName="name" placeholder="Building Name">
+            <div *ngIf="AddBuildingForm.get('name').touched && AddBuildingForm.get('name').errors?.required"
+								class="text text-danger mt-1">
+								Name is required
+							</div>
+          </div>
+          <div class="col">
+            <textarea class="form-control" placeholder="Address" formControlName="address"></textarea>
+            <div *ngIf="address.touched && address.errors?.required"
+								class="text text-danger mt-1">
+								Address is required
+							</div>
+          </div>
+        </div>
+        <div class="row" formArrayName="rooms" *ngFor="let room of AddBuildingForm.get('rooms')['controls']; let i=index">
+          <div [formGroupName]="i">
+          <hr style="border-top: 1px solid #8c8b8b;"/>
+          <div class="col m-5">
+            <input type="text" class="form-control" formControlName="name" placeholder="Room Name">
+            <div *ngIf="room.get('name').touched && room.get('name').errors?.required"
+								class="text text-danger mt-1">
+								Name is required
+							</div>
+          </div>
+          <div class="col m-5">
+            <textarea class="form-control" formControlName="address" placeholder="Room Address"></textarea>
+            {{room.get('address').valid}}
+            <div *ngIf="room.get('address').touched && room.get('address').errors?.required"
+								class="text text-danger mt-1">
+								Address is required
+							</div>
+          </div>
+          <div class="col">
+            <button class="btn btn-danger" (click)="RemoveRoom(i)">Remove Room</button>
+          </div>
+          <hr style="border-top: 1px solid #8c8b8b;"/>
+        </div>
+          
+        </div>
+        <button class="btn btn-primary m-5" (click)="AddRoom()">add Room</button>
+        <button class="btn btn-primary btn-block btn-lg m-5" [class.loader--text]="isLoading" [disabled]="!AddBuildingForm.valid&&!AddBuildingForm.dirty" (click)="onSubmit(AddBuildingForm)" >
+          <span>{{ isLoading ? '' : 'Update Building' }}</span></button>
+      </form>
+
+    </div>
+  </div>
+</div>
