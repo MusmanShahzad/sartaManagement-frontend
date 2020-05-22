@@ -1,5 +1,5 @@
 export const environment = {
-  graphQL: 'http://localhost:8888/graphql',
-  graphQLSocket: 'wss://localhost:8888/graphql',
+  graphQL: 'https://sartamanagement-backend.herokuapp.com/graphql',
+  graphQLSocket: 'wss://sartamanagement-backend.herokuapp.com/graphql',
   production: true
 };
