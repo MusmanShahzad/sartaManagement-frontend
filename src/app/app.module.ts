@@ -27,6 +27,7 @@ import { TypePipe } from './pipes/type.pipe';
 import { UserViewComponent } from './components/userView/userView.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,

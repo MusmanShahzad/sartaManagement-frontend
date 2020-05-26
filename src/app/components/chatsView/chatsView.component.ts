@@ -13,7 +13,6 @@ buildings: Building[];
   }
 type;
   ngOnInit() {
-    console.log('sending request')
     this.GetViewChats.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
       console.log(ele);
       this.buildings=ele.data.GetViewChats;

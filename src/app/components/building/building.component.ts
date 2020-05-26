@@ -14,7 +14,7 @@ isLoading:boolean = false;
 
   ngOnInit() {
     this.isLoading=true;
-    this.GetAllBuilding.watch().valueChanges.subscribe((ele) => {
+    this.GetAllBuilding.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe((ele) => {
       this.buildings=ele.data.GetAllBuilding;
       this.isLoading=false;
     })
