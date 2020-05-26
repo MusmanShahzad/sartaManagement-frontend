@@ -101,6 +101,11 @@ getMenu(){
 							{ path: '/room', title: 'view Apartments', type: 'link' },
 						]
 				},
+				{title:'Complain',type:'sub', children:[
+					{ path: '/complain/add', title: 'Add complain', type: 'link' },
+					{ path: '/complain', title: 'complain', type: 'link' }
+				]
+			},
 				{
 					title: 'Chat', icon: 'users', type: 'link',path: '/chat'
 				}
@@ -135,6 +140,12 @@ getMenu(){
 								{ path: '/room', title: 'view Apartments', type: 'link' },
 							]
 					},
+					{title:'Request',type:'sub', children:[
+						{ path: '/request', title: 'Received', type: 'link' },
+						{ path: '/request/my', title: 'my Requests', type: 'link' }
+					]
+				},
+					{ path: '/complain', title: 'complain', type: 'link' },
 					{
 						title: 'Chat', icon: 'users', type: 'link',path: '/chat'
 					}
@@ -157,6 +168,7 @@ getMenu(){
 						{ path: '/building', title: 'view Buildings', type: 'link' },
 					]
 			},
+			{ path: '/complain', title: 'complain', type: 'link' },
 			{
 				title: 'Chat', icon: 'users', type: 'link',path: '/chat'
 			}

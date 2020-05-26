@@ -1,4 +1,4 @@
-import { GetAllBuildingOfOwnerGQL } from './../../../../shared/graphql/service';
+import { GetAllBuildingOfOwnerGQL, RemoveAgentGQL } from './../../../../shared/graphql/service';
 import { Component, OnInit } from '@angular/core';
 import { Building } from 'src/app/shared/graphql/service';
 import { Router } from '@angular/router';
@@ -11,20 +11,18 @@ import { Router } from '@angular/router';
 export class MyBuildingComponent implements OnInit {
 isLoading = false;
 buildings: Building[];
-  constructor(private GetAllBuildingOfOwner:GetAllBuildingOfOwnerGQL,private router:Router) { }
+type;
+  constructor(private GetAllBuildingOfOwner:GetAllBuildingOfOwnerGQL) { }
 
   ngOnInit() {
+    this.type = localStorage.getItem('type');
     this.isLoading= true;
-    this.GetAllBuildingOfOwner.watch({}).valueChanges.subscribe(ele=>{
+    this.GetAllBuildingOfOwner.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
       this.buildings = ele.data.GetAllBuildingOfOwner;
       this.isLoading=false;
     })
   }
-  editRedirect(id){
-    this.router.navigate(['/building/manage/edit',id]);
-  }
-  viewRedirect(id){
-    this.router.navigate(['/building',id]);
-  }
+  
+  
 
 }

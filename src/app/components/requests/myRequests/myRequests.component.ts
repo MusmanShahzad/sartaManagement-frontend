@@ -1,3 +1,4 @@
+import { GetRequestOfUserGQL } from './../../../shared/graphql/service';
 import { Component, OnInit } from '@angular/core';
 import { GetRequestForOwnerGQL } from 'src/app/shared/graphql/service';
 
@@ -8,9 +9,12 @@ import { GetRequestForOwnerGQL } from 'src/app/shared/graphql/service';
 })
 export class MyRequestsComponent implements OnInit {
 requests;
-  constructor(private GetRequestOfUser:GetRequestForOwnerGQL) { }
+  constructor(private GetRequestOfUser:GetRequestOfUserGQL) { }
 
   ngOnInit() {
+    this.GetRequestOfUser.watch().valueChanges.subscribe(ele=>{
+      this.requests = ele.data.GetRequestOfUser;
+    });
   }
 
 }

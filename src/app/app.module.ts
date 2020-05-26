@@ -17,6 +17,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginService } from './shared/services/auth/login.service';
 import { CommonModule } from '@angular/common';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { MyRequestsComponent } from './components/requests/myRequests/myRequests.component';
+import { ChatsViewComponent } from './components/chatsView/chatsView.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { ComplainsComponent } from './components/complains/complains.component';
+import { AddComplainComponent } from './components/addComplain/addComplain.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +29,11 @@ import { RegisterComponent } from './components/auth/register/register.component
     DashboardComponent,
     LoginComponent,
     TestingComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChatsViewComponent,
+    ChatComponent,
+    ComplainsComponent,
+    AddComplainComponent
   ],
   imports: [
     CommonModule,

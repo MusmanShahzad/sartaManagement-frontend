@@ -1,0 +1,15 @@
+<div class="card">
+  <div class="card-header">
+    {{item.name}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Owner Name:{{item.ownersId.userId.name}}</h5>
+    <p class="card-text">Adresss:{{item.address}}</p>
+    <p class="card-text" *ngIf="item.agentId">Agent:{{item.agentId.userId.name}}</p>
+    <p class="card-text" *ngIf="item.rooms">Rooms:{{item.rooms.length}}</p>
+    
+    <button  class="btn btn-primary" (click)="viewRedirect(item._id)">View More</button>
+    <button  class="btn btn-warning" (click)="editRedirect(item._id)" *ngIf="type==2"> edit</button>
+    <button class="btn btn-danger" *ngIf="item.agentId" (click)="removeAgentBtn(item._id)" >Remove agent</button>
+  </div>
+</div>

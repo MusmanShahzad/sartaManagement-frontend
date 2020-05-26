@@ -5,6 +5,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ViewComponent } from './manage/view/view.component';
 import { EditComponent } from './manage/edit/edit.component';
 import { AddComponent } from './manage/add/add.component';
+import { DateConvertorPipe } from '../dateConvertor.pipe';
+
 const routes: Routes =[
     { path:'', component:RoomComponent},
     {path:'manage',children:[
@@ -16,7 +18,14 @@ const routes: Routes =[
 
 ];
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+   imports: [
+      RouterModule.forChild(routes)
+   ],
+   exports: [
+      RouterModule
+   ],
+   declarations: [
+      DateConvertorPipe
+   ]
 })
 export class RoomRoutingModule{}

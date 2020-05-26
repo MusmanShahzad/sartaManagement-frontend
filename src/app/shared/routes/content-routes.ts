@@ -1,13 +1,25 @@
 import { ChatComponent } from './../../components/chat/chat.component';
 import { Routes } from '@angular/router';
 import { DashboardComponent } from 'src/app/components/dashboard/dashboard.component';
+import { ChatsViewComponent } from 'src/app/components/chatsView/chatsView.component';
+import { ComplainsComponent } from 'src/app/components/complains/complains.component';
+import { AddComplainComponent } from 'src/app/components/addComplain/addComplain.component';
 
 export const content: Routes = [
   {
     path: 'dashboard', component: DashboardComponent
   },
   {
-    path: 'chat', component: ChatComponent
+    path: 'chat', component: ChatsViewComponent
+  },
+  {
+    path: 'chat/:type/:id', component: ChatComponent
+  },
+  {
+    path:'complain', component: ComplainsComponent
+  },
+  {
+    path:'complain/add', component: AddComplainComponent
   },
   {
     path: 'building',

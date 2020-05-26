@@ -44,6 +44,7 @@
           
         </div>
         <button class="btn btn-primary m-5" (click)="AddRoom()">add Room</button>
+        <button class="btn btn-danger m-5" *ngIf="building?.agentId" (click)="removeAgentBtn(building?._id)">Remove Agent</button>
         <button class="btn btn-primary btn-block btn-lg m-5" [class.loader--text]="isLoading" [disabled]="!AddBuildingForm.valid&&!AddBuildingForm.dirty" (click)="onSubmit(AddBuildingForm)" >
           <span>{{ isLoading ? '' : 'Update Building' }}</span></button>
       </form>

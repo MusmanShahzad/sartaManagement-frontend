@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-12 col-md-12 col-sm-12" *ngIf="buildings&&buildings.length==0">
+      <div class="alert alert-warning" role="alert">
+        No Record To Show
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4" *ngFor="let item of buildings">
+      <div class="card">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Building Name: {{item.name}}</h5>
+            
+          </div>
+          <div class="card-footer">
+            <a [routerLink]="['/chat','owner',item._id]" class="card-link">Owner Chat</a>
+            <a [routerLink]="['/chat','all',item._id]" class="card-link">All Chat</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

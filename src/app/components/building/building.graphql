@@ -95,7 +95,26 @@ query GetBuildingById($buildingId:ID){
         
       }
     }
-    
+    message{
+      userId{
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+    messageOwner{
+      userId{
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
   }
 }
 query GetAllBuildingOfOwner($ownerId:ID){
@@ -156,5 +175,13 @@ mutation CreateRequest($building:ID,$roomId:String){
     }
     status
   }
+  }
+}
+mutation RemoveAgent($buildingId:ID){
+  RemoveAgent(buildingId:$buildingId){
+    Errors{
+      error
+      message
+    }
   }
 }

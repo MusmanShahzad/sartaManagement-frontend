@@ -27,7 +27,7 @@
           <h5 class="card-title">Building:{{room.building.name}}</h5>
           <p class="card-text">Address: {{room.address}}</p>
           <p class="card-text">tenant Name:{{room.tenantId?room.tenantId:'no tenant'}}</p>
-          <button  class="btn btn-primary" *ngIf="type==2&&showButton" (click)="CreateRequest(room._id)">Send Request</button>
+          <button  class="btn btn-primary"  (click)="CreateRequest(room._id)">Send Request</button>
         </div>
       </div>
     </div>

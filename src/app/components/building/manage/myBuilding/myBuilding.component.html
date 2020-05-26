@@ -19,19 +19,27 @@
 </div>
 <div class="container-fluid" *ngIf="!isLoading&&buildings">
   <div class="row">
+    <div class="col-12 col-md-12 col-sm-12" *ngIf="buildings&&buildings.length==0">
+      <div class="alert alert-warning" role="alert">
+        No Record To Show
+      </div>
     <div class="col-12 col-md-12 col-sm-12" *ngFor="let item of buildings">
-      <div class="card">
+      <!-- <div class="card">
         <div class="card-header">
           {{item.name}}
         </div>
         <div class="card-body">
           <h5 class="card-title">Owner Name:{{item.ownersId.userId.name}}</h5>
           <p class="card-text">Adresss:{{item.address}}</p>
+          <p class="card-text" *ngIf="item.agentId">Agent:{{item.agentId.userId.name}}</p>
           <p class="card-text" *ngIf="item.rooms">Rooms:{{item.rooms.length}}</p>
-          <a  class="btn btn-primary" (click)="viewRedirect(item._id)">View More</a>
-          <a  class="btn btn-primary" (click)="editRedirect(item._id)"> edit</a>
+          
+          <button  class="btn btn-primary" (click)="viewRedirect(item._id)">View More</button>
+          <button  class="btn btn-warning" (click)="editRedirect(item._id)" *ngIf="type==2"> edit</button>
+          <button class="btn btn-danger" *ngIf="item.agentId" (click)="removeAgentBtn(item._id)" >Remove agent</button>
         </div>
-      </div>
+      </div> -->
+      <app-myBuildingCard [item]="item"></app-myBuildingCard>
     </div>
   </div>
 </div>

@@ -1,0 +1,16 @@
+<p>working</p>
+<div class="container-fluid">
+  <div class="row-fluid" *ngFor="let complain of complains">
+    <div class="col-12 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          Complain:{{complain.complain}}
+        </div>
+        <div class="card-body">
+          <p class="card-text">Room Name:{{complain.roomId.name}}</p>
+          <p class="card-text">Building Name:{{complain.building.name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+query GetViewChats{
+  GetViewChats{
+    _id
+    name
+  }
+}
+mutation AddChatOwner($buildingId:ID,$message:String,$url:String){
+  AddChatOwner(buildingId:$buildingId,message:$message,url:$url){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      name
+      messageOwner{
+      userId{
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+    }
+  }
+}
+mutation AddChatAll($buildingId:ID,$message:String,$url:String){
+  AddChatAll(buildingId:$buildingId,message:$message,url:$url){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      name
+      message{
+      userId{
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+    }
+  }
+}
+subscription ChatOwnerUpdate($buildingId:ID){
+  ChatOwnerUpdate(buildingId:$buildingId){
+    
+      _id
+      name
+      messageOwner{
+      userId{
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+    }
+  
+}
+subscription ChatAllUpdate($buildingId:ID){
+  ChatAllUpdate(buildingId:$buildingId){
+    
+      _id
+      name
+      message{
+      userId{
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+    }
+  
+}

@@ -17,6 +17,11 @@
 </div>
 <div class="container-fluid">
   <div class="row">
+    <div class="col-12 col-md-12 col-sm-12" *ngIf="rooms&&rooms.length==0">
+      <div class="alert alert-warning" role="alert">
+        No Record To Show
+      </div>
+    </div>
     <div class="col-12 col-md-12 col-sm-12" *ngFor="let room of rooms">
       <div class="card">
         <div class="card-header">
@@ -27,7 +32,7 @@
           <h5 class="card-title">Building:{{room.building.name}}</h5>
           <p class="card-text">Address: {{room.address}}</p>
           <p class="card-text">tenant Name:{{room.tenantId?room.tenantId:'no tenant'}}</p>
-          <button  class="btn btn-danger" *ngIf="type==2" (click)="RemoveTenant(room._id)">Remove tenant</button>
+          <button  class="btn btn-danger" *ngIf="room.tenantId" (click)="RemoveTenant(room._id)">Remove tenant</button>
         </div>
       </div>
     </div>

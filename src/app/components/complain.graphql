@@ -1,0 +1,26 @@
+mutation CreateComplain($complain:String){
+  CreateComplain(complain:$complain){
+    Errors{
+      error
+      message
+    }
+  }
+}
+query GetAllComplaints{
+  GetAllComplaints{
+    complain
+    userId{
+      _id
+      name
+    }
+    building{
+      _id
+      name
+    }
+    roomId{
+      _id
+      name
+    }
+    status
+  }
+}

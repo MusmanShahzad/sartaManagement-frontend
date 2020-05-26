@@ -8,6 +8,8 @@ import { MyBuildingComponent } from './manage/myBuilding/myBuilding.component';
 import { AddComponent } from './manage/add/add.component';
 import {FormsModule, ReactiveFormsModule}   from '@angular/forms';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { BuildingCardComponent } from 'src/app/shared/components/building/buildingCard/buildingCard.component';
+import { MyBuildingCardComponent } from 'src/app/shared/components/building/myBuildingCard/myBuildingCard.component';
 
 @NgModule({
   imports: [
@@ -23,7 +25,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     EditComponent,
     MyBuildingComponent,
     AddComponent,
-
+    BuildingCardComponent,
+    MyBuildingCardComponent,
   ]
 })
 export class BuildingModule { }

@@ -16,7 +16,7 @@ export type Scalars = {
 
 
 export type User = {
-  __typename?: 'user';
+   __typename?: 'user';
   _id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
@@ -25,8 +25,17 @@ export type User = {
   status?: Maybe<Scalars['Boolean']>;
 };
 
+export type Message = {
+   __typename?: 'message';
+  userId?: Maybe<User>;
+  messageType?: Maybe<Scalars['Int']>;
+  message?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
 export type Request = {
-  __typename?: 'request';
+   __typename?: 'request';
   _id?: Maybe<Scalars['ID']>;
   notification?: Maybe<Scalars['String']>;
   notificationType?: Maybe<Scalars['Int']>;
@@ -37,14 +46,14 @@ export type Request = {
 };
 
 export type Buildings = {
-  __typename?: 'buildings';
+   __typename?: 'buildings';
   _id?: Maybe<Scalars['ID']>;
   buildingId?: Maybe<Building>;
   status?: Maybe<Scalars['Boolean']>;
 };
 
 export type Agent = {
-  __typename?: 'agent';
+   __typename?: 'agent';
   _id?: Maybe<Scalars['ID']>;
   userId?: Maybe<User>;
   buildings?: Maybe<Array<Maybe<Buildings>>>;
@@ -53,7 +62,7 @@ export type Agent = {
 };
 
 export type TenantsHistory = {
-  __typename?: 'tenantsHistory';
+   __typename?: 'tenantsHistory';
   _Id?: Maybe<Scalars['ID']>;
   tenantsId?: Maybe<Tenant>;
   joinedDate?: Maybe<Scalars['String']>;
@@ -62,7 +71,7 @@ export type TenantsHistory = {
 };
 
 export type Room = {
-  __typename?: 'room';
+   __typename?: 'room';
   _id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
@@ -75,12 +84,12 @@ export type Room = {
 };
 
 export type Rooms = {
-  __typename?: 'rooms';
+   __typename?: 'rooms';
   roomId?: Maybe<Room>;
 };
 
 export type Tenant = {
-  __typename?: 'tenant';
+   __typename?: 'tenant';
   _id?: Maybe<Scalars['ID']>;
   userId?: Maybe<User>;
   roomId?: Maybe<Room>;
@@ -89,7 +98,7 @@ export type Tenant = {
 };
 
 export type Owner = {
-  __typename?: 'owner';
+   __typename?: 'owner';
   _id?: Maybe<Scalars['ID']>;
   userId?: Maybe<User>;
   buildings?: Maybe<Array<Maybe<Buildings>>>;
@@ -98,16 +107,8 @@ export type Owner = {
   status?: Maybe<Scalars['Boolean']>;
 };
 
-export type Messages = {
-  __typename?: 'messages';
-  userId?: Maybe<User>;
-  messageType?: Maybe<Scalars['Int']>;
-  message?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-};
-
 export type Building = {
-  __typename?: 'building';
+   __typename?: 'building';
   _id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
@@ -115,41 +116,42 @@ export type Building = {
   ownersId?: Maybe<Owner>;
   status?: Maybe<Scalars['Boolean']>;
   rooms?: Maybe<Array<Maybe<Rooms>>>;
-  message?: Maybe<Array<Maybe<Messages>>>;
+  message?: Maybe<Array<Maybe<Message>>>;
+  messageOwner?: Maybe<Array<Maybe<Message>>>;
 };
 
 export type Error = {
-  __typename?: 'Error';
+   __typename?: 'Error';
   error?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
 };
 
 export type RegisterData = {
-  __typename?: 'registerData';
+   __typename?: 'registerData';
   user?: Maybe<User>;
   token?: Maybe<Scalars['String']>;
 };
 
 export type RegisterOutput = {
-  __typename?: 'registerOutput';
+   __typename?: 'registerOutput';
   Errors?: Maybe<Array<Maybe<Error>>>;
   Data?: Maybe<RegisterData>;
 };
 
 export type AddRoomOutput = {
-  __typename?: 'addRoomOutput';
+   __typename?: 'addRoomOutput';
   Errors?: Maybe<Array<Maybe<Error>>>;
   Data?: Maybe<Room>;
 };
 
 export type AddBuildingOutput = {
-  __typename?: 'addBuildingOutput';
+   __typename?: 'addBuildingOutput';
   Errors?: Maybe<Array<Maybe<Error>>>;
   Data?: Maybe<Building>;
 };
 
 export type RequestOutput = {
-  __typename?: 'requestOutput';
+   __typename?: 'requestOutput';
   Errors?: Maybe<Array<Maybe<Error>>>;
   Data?: Maybe<Request>;
 };
@@ -159,8 +161,23 @@ export type RoomsInput = {
   address?: Maybe<Scalars['String']>;
 };
 
+export type Complain = {
+   __typename?: 'complain';
+  complain?: Maybe<Scalars['String']>;
+  userId?: Maybe<User>;
+  building?: Maybe<Building>;
+  roomId?: Maybe<Room>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type ComplainOutput = {
+   __typename?: 'complainOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Complain>;
+};
+
 export type Mutation = {
-  __typename?: 'Mutation';
+   __typename?: 'Mutation';
   singleUpload?: Maybe<Scalars['String']>;
   RegisterUser?: Maybe<RegisterOutput>;
   LoginUser?: Maybe<RegisterOutput>;
@@ -168,8 +185,12 @@ export type Mutation = {
   RemoveTenantFromRoom?: Maybe<AddRoomOutput>;
   AddBuilding?: Maybe<AddBuildingOutput>;
   UpdateBuilding?: Maybe<AddBuildingOutput>;
+  RemoveAgent?: Maybe<AddBuildingOutput>;
   CreateRequest?: Maybe<RequestOutput>;
   ApproveRequest?: Maybe<RequestOutput>;
+  AddChatOwner?: Maybe<AddBuildingOutput>;
+  AddChatAll?: Maybe<AddBuildingOutput>;
+  CreateComplain?: Maybe<ComplainOutput>;
 };
 
 
@@ -219,6 +240,11 @@ export type MutationUpdateBuildingArgs = {
 };
 
 
+export type MutationRemoveAgentArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
 export type MutationCreateRequestArgs = {
   building?: Maybe<Scalars['ID']>;
   roomId?: Maybe<Scalars['String']>;
@@ -229,8 +255,43 @@ export type MutationApproveRequestArgs = {
   requestId?: Maybe<Scalars['ID']>;
 };
 
+
+export type MutationAddChatOwnerArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+  message?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationAddChatAllArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+  message?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationCreateComplainArgs = {
+  complain?: Maybe<Scalars['String']>;
+};
+
+export type Subscription = {
+   __typename?: 'Subscription';
+  ChatOwnerUpdate?: Maybe<Building>;
+  ChatAllUpdate?: Maybe<Building>;
+};
+
+
+export type SubscriptionChatOwnerUpdateArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type SubscriptionChatAllUpdateArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
 export type Query = {
-  __typename?: 'Query';
+   __typename?: 'Query';
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getUserById?: Maybe<User>;
   getUser?: Maybe<User>;
@@ -239,9 +300,12 @@ export type Query = {
   getRoomOfOwner?: Maybe<Array<Maybe<Room>>>;
   GetAllBuilding?: Maybe<Array<Maybe<Building>>>;
   GetAllBuildingOfOwner?: Maybe<Array<Maybe<Building>>>;
+  GetAllBuildingOfAgent?: Maybe<Array<Maybe<Building>>>;
   GetBuildingById?: Maybe<Building>;
   GetRequestForOwner?: Maybe<Array<Maybe<Request>>>;
   GetRequestOfUser?: Maybe<Array<Maybe<Request>>>;
+  GetViewChats?: Maybe<Array<Maybe<Building>>>;
+  GetAllComplaints?: Maybe<Array<Maybe<Complain>>>;
 };
 
 
@@ -256,6 +320,11 @@ export type QueryGetRoomByIdArgs = {
 
 
 export type QueryGetAllBuildingOfOwnerArgs = {
+  ownerId?: Maybe<Scalars['ID']>;
+};
+
+
+export type QueryGetAllBuildingOfAgentArgs = {
   ownerId?: Maybe<Scalars['ID']>;
 };
 
@@ -374,6 +443,20 @@ export type GetBuildingByIdQuery = (
           )> }
         )> }
       )> }
+    )>>>, message?: Maybe<Array<Maybe<(
+      { __typename?: 'message' }
+      & Pick<Message, 'message' | 'url' | 'date'>
+      & { userId?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, '_id' | 'name' | 'userType'>
+      )> }
+    )>>>, messageOwner?: Maybe<Array<Maybe<(
+      { __typename?: 'message' }
+      & Pick<Message, 'message' | 'url' | 'date'>
+      & { userId?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, '_id' | 'name' | 'userType'>
+      )> }
     )>>> }
   )> }
 );
@@ -443,6 +526,22 @@ export type CreateRequestMutation = (
   )> }
 );
 
+export type RemoveAgentMutationVariables = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type RemoveAgentMutation = (
+  { __typename?: 'Mutation' }
+  & { RemoveAgent?: Maybe<(
+    { __typename?: 'addBuildingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>> }
+  )> }
+);
+
 export type UpdateBuildingMutationVariables = {
   name?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
@@ -492,6 +591,154 @@ export type AddBuildingMutation = (
       )> }
     )> }
   )> }
+);
+
+export type GetViewChatsQueryVariables = {};
+
+
+export type GetViewChatsQuery = (
+  { __typename?: 'Query' }
+  & { GetViewChats?: Maybe<Array<Maybe<(
+    { __typename?: 'building' }
+    & Pick<Building, '_id' | 'name'>
+  )>>> }
+);
+
+export type AddChatOwnerMutationVariables = {
+  buildingId?: Maybe<Scalars['ID']>;
+  message?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+
+export type AddChatOwnerMutation = (
+  { __typename?: 'Mutation' }
+  & { AddChatOwner?: Maybe<(
+    { __typename?: 'addBuildingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, '_id' | 'name'>
+      & { messageOwner?: Maybe<Array<Maybe<(
+        { __typename?: 'message' }
+        & Pick<Message, 'message' | 'url' | 'date'>
+        & { userId?: Maybe<(
+          { __typename?: 'user' }
+          & Pick<User, '_id' | 'name' | 'userType'>
+        )> }
+      )>>> }
+    )> }
+  )> }
+);
+
+export type AddChatAllMutationVariables = {
+  buildingId?: Maybe<Scalars['ID']>;
+  message?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+
+export type AddChatAllMutation = (
+  { __typename?: 'Mutation' }
+  & { AddChatAll?: Maybe<(
+    { __typename?: 'addBuildingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, '_id' | 'name'>
+      & { message?: Maybe<Array<Maybe<(
+        { __typename?: 'message' }
+        & Pick<Message, 'message' | 'url' | 'date'>
+        & { userId?: Maybe<(
+          { __typename?: 'user' }
+          & Pick<User, '_id' | 'name' | 'userType'>
+        )> }
+      )>>> }
+    )> }
+  )> }
+);
+
+export type ChatOwnerUpdateSubscriptionVariables = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type ChatOwnerUpdateSubscription = (
+  { __typename?: 'Subscription' }
+  & { ChatOwnerUpdate?: Maybe<(
+    { __typename?: 'building' }
+    & Pick<Building, '_id' | 'name'>
+    & { messageOwner?: Maybe<Array<Maybe<(
+      { __typename?: 'message' }
+      & Pick<Message, 'message' | 'url' | 'date'>
+      & { userId?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, '_id' | 'name' | 'userType'>
+      )> }
+    )>>> }
+  )> }
+);
+
+export type ChatAllUpdateSubscriptionVariables = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type ChatAllUpdateSubscription = (
+  { __typename?: 'Subscription' }
+  & { ChatAllUpdate?: Maybe<(
+    { __typename?: 'building' }
+    & Pick<Building, '_id' | 'name'>
+    & { message?: Maybe<Array<Maybe<(
+      { __typename?: 'message' }
+      & Pick<Message, 'message' | 'url' | 'date'>
+      & { userId?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, '_id' | 'name' | 'userType'>
+      )> }
+    )>>> }
+  )> }
+);
+
+export type CreateComplainMutationVariables = {
+  complain?: Maybe<Scalars['String']>;
+};
+
+
+export type CreateComplainMutation = (
+  { __typename?: 'Mutation' }
+  & { CreateComplain?: Maybe<(
+    { __typename?: 'complainOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>> }
+  )> }
+);
+
+export type GetAllComplaintsQueryVariables = {};
+
+
+export type GetAllComplaintsQuery = (
+  { __typename?: 'Query' }
+  & { GetAllComplaints?: Maybe<Array<Maybe<(
+    { __typename?: 'complain' }
+    & Pick<Complain, 'complain' | 'status'>
+    & { userId?: Maybe<(
+      { __typename?: 'user' }
+      & Pick<User, '_id' | 'name'>
+    )>, building?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, '_id' | 'name'>
+    )>, roomId?: Maybe<(
+      { __typename?: 'room' }
+      & Pick<Room, '_id' | 'name'>
+    )> }
+  )>>> }
 );
 
 export type ApproveRequestMutationVariables = {
@@ -812,6 +1059,26 @@ export const GetBuildingByIdDocument = gql`
         }
       }
     }
+    message {
+      userId {
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+    messageOwner {
+      userId {
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
   }
 }
     `;
@@ -902,6 +1169,24 @@ export const CreateRequestDocument = gql`
     document = CreateRequestDocument;
     
   }
+export const RemoveAgentDocument = gql`
+    mutation RemoveAgent($buildingId: ID) {
+  RemoveAgent(buildingId: $buildingId) {
+    Errors {
+      error
+      message
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RemoveAgentGQL extends Apollo.Mutation<RemoveAgentMutation, RemoveAgentMutationVariables> {
+    document = RemoveAgentDocument;
+    
+  }
 export const UpdateBuildingDocument = gql`
     mutation UpdateBuilding($name: String, $address: String, $room: [roomsInput], $id: ID) {
   UpdateBuilding(name: $name, address: $address, rooms: $room, id: $id) {
@@ -952,6 +1237,184 @@ export const AddBuildingDocument = gql`
   })
   export class AddBuildingGQL extends Apollo.Mutation<AddBuildingMutation, AddBuildingMutationVariables> {
     document = AddBuildingDocument;
+    
+  }
+export const GetViewChatsDocument = gql`
+    query GetViewChats {
+  GetViewChats {
+    _id
+    name
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetViewChatsGQL extends Apollo.Query<GetViewChatsQuery, GetViewChatsQueryVariables> {
+    document = GetViewChatsDocument;
+    
+  }
+export const AddChatOwnerDocument = gql`
+    mutation AddChatOwner($buildingId: ID, $message: String, $url: String) {
+  AddChatOwner(buildingId: $buildingId, message: $message, url: $url) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+      name
+      messageOwner {
+        userId {
+          _id
+          name
+          userType
+        }
+        message
+        url
+        date
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AddChatOwnerGQL extends Apollo.Mutation<AddChatOwnerMutation, AddChatOwnerMutationVariables> {
+    document = AddChatOwnerDocument;
+    
+  }
+export const AddChatAllDocument = gql`
+    mutation AddChatAll($buildingId: ID, $message: String, $url: String) {
+  AddChatAll(buildingId: $buildingId, message: $message, url: $url) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+      name
+      message {
+        userId {
+          _id
+          name
+          userType
+        }
+        message
+        url
+        date
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AddChatAllGQL extends Apollo.Mutation<AddChatAllMutation, AddChatAllMutationVariables> {
+    document = AddChatAllDocument;
+    
+  }
+export const ChatOwnerUpdateDocument = gql`
+    subscription ChatOwnerUpdate($buildingId: ID) {
+  ChatOwnerUpdate(buildingId: $buildingId) {
+    _id
+    name
+    messageOwner {
+      userId {
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ChatOwnerUpdateGQL extends Apollo.Subscription<ChatOwnerUpdateSubscription, ChatOwnerUpdateSubscriptionVariables> {
+    document = ChatOwnerUpdateDocument;
+    
+  }
+export const ChatAllUpdateDocument = gql`
+    subscription ChatAllUpdate($buildingId: ID) {
+  ChatAllUpdate(buildingId: $buildingId) {
+    _id
+    name
+    message {
+      userId {
+        _id
+        name
+        userType
+      }
+      message
+      url
+      date
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ChatAllUpdateGQL extends Apollo.Subscription<ChatAllUpdateSubscription, ChatAllUpdateSubscriptionVariables> {
+    document = ChatAllUpdateDocument;
+    
+  }
+export const CreateComplainDocument = gql`
+    mutation CreateComplain($complain: String) {
+  CreateComplain(complain: $complain) {
+    Errors {
+      error
+      message
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateComplainGQL extends Apollo.Mutation<CreateComplainMutation, CreateComplainMutationVariables> {
+    document = CreateComplainDocument;
+    
+  }
+export const GetAllComplaintsDocument = gql`
+    query GetAllComplaints {
+  GetAllComplaints {
+    complain
+    userId {
+      _id
+      name
+    }
+    building {
+      _id
+      name
+    }
+    roomId {
+      _id
+      name
+    }
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllComplaintsGQL extends Apollo.Query<GetAllComplaintsQuery, GetAllComplaintsQueryVariables> {
+    document = GetAllComplaintsDocument;
     
   }
 export const ApproveRequestDocument = gql`
