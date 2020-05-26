@@ -37,15 +37,15 @@
 							</div>
           </div>
           <div class="col">
-            <button class="btn btn-danger" (click)="RemoveRoom(i)">Remove Room</button>
+            <button class="btn btn-danger" (click)="RemoveRoom(i)">Remove Unit</button>
           </div>
           <hr style="border-top: 1px solid #8c8b8b;"/>
         </div>
           
         </div>
-        <button class="btn btn-primary m-5" (click)="AddRoom()">add Room</button>
+        <button class="btn btn-primary m-5" (click)="AddRoom()">Add Unit</button>
         <button class="btn btn-primary btn-block btn-lg m-5" [class.loader--text]="isLoading" [disabled]="!AddBuildingForm.valid" (click)="onSubmit(AddBuildingForm)" >
-          <span>{{ isLoading ? '' : 'Add Building' }}</span></button>
+          <span>{{ isLoading ? '' : 'Add Apartment' }}</span></button>
       </form>
 
     </div>
