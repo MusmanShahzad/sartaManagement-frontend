@@ -9,7 +9,7 @@
         </a></div>
     </div>
     <h6 class="mt-3 f-14">{{user?.name}}</h6>
-    <p>{{user?.userType}}</p>
+    <p>{{user?.userType==1?'Tenant':user?.userType==2?'EcAdmin':user?.userType==3?'Agent':'Admin'}}</p>
   </div>
   <ul class="sidebar-menu" *ngIf="menuItems.length>0">
     <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}">
