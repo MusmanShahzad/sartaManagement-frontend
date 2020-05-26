@@ -12,7 +12,7 @@ requests;
   constructor(private GetRequestOfUser:GetRequestOfUserGQL) { }
 
   ngOnInit() {
-    this.GetRequestOfUser.watch().valueChanges.subscribe(ele=>{
+    this.GetRequestOfUser.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
       this.requests = ele.data.GetRequestOfUser;
     });
   }
