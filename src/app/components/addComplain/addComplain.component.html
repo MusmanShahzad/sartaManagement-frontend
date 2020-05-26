@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="col-12 col-md-12 col-sm-12">
-      <form>
+      <form [formGroup]="complainForm">
       <div class="form-group">
         <h1 for="complain">Complain</h1>
-        <textarea class="form-control" id="complain" rows="3" placeholder="Complain Text"></textarea>
+        <textarea class="form-control" id="complain" rows="3" formControlName="complain" placeholder="Complain Text"></textarea>
       </div>
     
-    <button type="submit" class="btn btn-primary m-2">Complain</button>
+    <button type="submit" class="btn btn-primary m-2" (click)="addComplain()">Complain</button>
   </form>
 </div>
   </div>

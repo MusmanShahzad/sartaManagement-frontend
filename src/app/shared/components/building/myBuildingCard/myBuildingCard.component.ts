@@ -16,6 +16,7 @@ type;
 
   ngOnInit() {
     this.type = localStorage.getItem('type');
+    console.log(this.item);
   }
   editRedirect(id){
     this.router.navigate(['/building/manage/edit',id]);

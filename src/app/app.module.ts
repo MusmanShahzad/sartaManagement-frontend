@@ -22,6 +22,11 @@ import { ChatsViewComponent } from './components/chatsView/chatsView.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ComplainsComponent } from './components/complains/complains.component';
 import { AddComplainComponent } from './components/addComplain/addComplain.component';
+import { DateConvertorPipe } from './components/dateConvertor.pipe';
+import { TypePipe } from './pipes/type.pipe';
+import { UserViewComponent } from './components/userView/userView.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +38,10 @@ import { AddComplainComponent } from './components/addComplain/addComplain.compo
     ChatsViewComponent,
     ChatComponent,
     ComplainsComponent,
-    AddComplainComponent
+    AddComplainComponent,
+    UserViewComponent,
+    DateConvertorPipe,
+    TypePipe
   ],
   imports: [
     CommonModule,
@@ -47,7 +55,8 @@ import { AddComplainComponent } from './components/addComplain/addComplain.compo
     GraphQLModule,
     ToastrModule.forRoot({
       maxOpened: 4,
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

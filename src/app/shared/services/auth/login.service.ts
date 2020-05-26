@@ -29,6 +29,11 @@ UpdateLogin(email,password) {
       this.LoginData.next(null);
       return;
     }
+    if(!ele.data.LoginUser.Data.user.status){
+      this.toastr.error('You have been blocked','Blocked');
+      this.LoginData.next(null);
+      return;
+    }
     localStorage.setItem('token', ele.data.LoginUser.Data.token);
     localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
     this.LoginData.next(ele.data.LoginUser.Data.token);

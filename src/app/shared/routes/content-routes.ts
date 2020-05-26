@@ -4,6 +4,7 @@ import { DashboardComponent } from 'src/app/components/dashboard/dashboard.compo
 import { ChatsViewComponent } from 'src/app/components/chatsView/chatsView.component';
 import { ComplainsComponent } from 'src/app/components/complains/complains.component';
 import { AddComplainComponent } from 'src/app/components/addComplain/addComplain.component';
+import { UserViewComponent } from 'src/app/components/userView/userView.component';
 
 export const content: Routes = [
   {
@@ -20,6 +21,9 @@ export const content: Routes = [
   },
   {
     path:'complain/add', component: AddComplainComponent
+  },
+  {
+    path:'userView/:id', component: UserViewComponent
   },
   {
     path: 'building',

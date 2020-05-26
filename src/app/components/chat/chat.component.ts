@@ -31,7 +31,7 @@ sendDisable=false;
       this.buildingId = (queryParams.get('id'));
       this.type = (queryParams.get('type'));
       if(queryParams.get('type')=='owner'){
-        this.GetBuildingById.watch({buildingId: queryParams.get('id')}).valueChanges.subscribe(ele=>{
+        this.GetBuildingById.watch({buildingId: queryParams.get('id')},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
           this.messages=ele.data.GetBuildingById.messageOwner;
         });
         this.ChatOwnerUpdate.subscribe({buildingId:this.buildingId}).subscribe(ele=>{
@@ -42,7 +42,9 @@ sendDisable=false;
         });
       }
       if(queryParams.get('type')=='all'){
-        this.GetBuildingById.watch({buildingId: queryParams.get('id')}).valueChanges.subscribe(ele=>{
+        console.log('here');
+        this.GetBuildingById.watch({buildingId: queryParams.get('id')},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
+          console.log(ele);
           this.messages=ele.data.GetBuildingById.message;
         });
         this.ChatAllUpdate.subscribe({buildingId:this.buildingId}).subscribe(ele=>{
@@ -65,8 +67,11 @@ sendDisable=false;
     else if(this.type=='all'){
       this.sendDisable=true;
       this.AddChatAll.mutate({...this.messageForm.value,buildingId:this.buildingId}).subscribe(ele=>{
+        console.log(ele);
         this.sendDisable=false;
+        if(ele.data.AddChatAll){
         this.messages=ele.data.AddChatAll.Data.message;
+        }
       })
     }
   }

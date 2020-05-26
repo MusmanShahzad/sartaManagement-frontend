@@ -18,17 +18,18 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 col-md-12 col-sm-12" *ngFor="let room of rooms">
-      <div class="card">
+      <div class="card" *ngIf="room.status||type==0">
         <div class="card-header">
-          Room Name
+          Room Name:<a [routerLink]="['view',room?._id]"> {{room.name}}</a> 
         </div>
         <div class="card-body">
-          <h2 class="card-title">EcMember:{{room?.ownersId?.userId?.name}}</h2>
-          <h5 class="card-title">Building:{{room.building.name}}</h5>
+          <h2 class="card-title">EcMember:<a [routerLink]="['../userView',room?.ownersId.userId._id]">{{room?.ownersId?.userId?.name}}</a></h2>
+          <h5 class="card-title">Building:<a [routerLink]="['../building',room?.building._id]">{{room.building.name}}</a></h5>
           <p class="card-text">Address: {{room.address}}</p>
-          <p class="card-text">tenant Name:{{room.tenantId?room.tenantId:'no tenant'}}</p>
-          <button  class="btn btn-primary"  (click)="CreateRequest(room._id)">Send Request</button>
+          <p class="card-text" *ngIf="room.tenantId">tenant Name:<a [routerLink]="['../userView',room?.tenantId.userId._id]">{{room.tenantId.userId.name}}</a></p>
+          <p class="card-text" *ngIf="!room.tenantId">tenant Name: No Tenant</p>
         </div>
+        
       </div>
     </div>
   </div>

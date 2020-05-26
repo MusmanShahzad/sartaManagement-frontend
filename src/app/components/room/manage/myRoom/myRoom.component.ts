@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MyRoomComponent implements OnInit {
   rooms;
-  type ;
+  type;
   isLoading:boolean = false;
   constructor(private getRoomOfOwner:GetRoomOfOwnerGQL,private toastr: ToastrService,
     private RemoveTenantFromRoom:RemoveTenantFromRoomGQL) { }
@@ -18,7 +18,7 @@ export class MyRoomComponent implements OnInit {
   ngOnInit() {
     this.type = localStorage.getItem('type');
     this.isLoading = true;
-    this.getRoomOfOwner.watch().valueChanges.subscribe(element=>{
+    this.getRoomOfOwner.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(element=>{
       this.rooms = element.data.getRoomOfOwner;
       this.isLoading=false;
     })

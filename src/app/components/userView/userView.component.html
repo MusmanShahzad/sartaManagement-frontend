@@ -1,0 +1,20 @@
+<div class="container-fluid">
+<div class="row-fluid">
+  <div class="col-12 col-md-12 col-sm-12">
+    <div class="card" *ngIf="user">
+      <div class="card-header">
+       <h1> name:{{user.name}}</h1>
+      </div>
+      <div class="card-body">
+        <p>Email:{{user.email}}</p>
+        <p>{{user.userType|type}}</p>
+        <p *ngIf="!user.status">Blocked</p>
+      </div>
+      <div class="card-footer" *ngIf="type ==0">
+        <button class="btn btn-danger" *ngIf="user.status" (click)="statusChange()">Block</button>
+        <button class="btn btn-danger" *ngIf="!user.status"  (click)="statusChange()">UnBlock</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

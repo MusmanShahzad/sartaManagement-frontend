@@ -12,7 +12,7 @@ requests;
   constructor(private GetRequestForOwner:GetRequestForOwnerGQL,private ApproveRequest:ApproveRequestGQL,private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.GetRequestForOwner.watch().valueChanges.subscribe(ele=>{
+    this.GetRequestForOwner.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
       console.log(ele);
       this.requests = ele.data.GetRequestForOwner;
     })
@@ -23,8 +23,9 @@ requests;
         ele.data.ApproveRequest.Errors.forEach(error=>{
           this.toastr.error(error.message,error.error);
         })
+        return;
       }
-      this.GetRequestForOwner.watch().valueChanges.subscribe(element=>{
+      this.GetRequestForOwner.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(element=>{
         this.requests = element.data.GetRequestForOwner;
       })
       this.toastr.success('Request accepted','success');

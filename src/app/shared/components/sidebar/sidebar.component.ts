@@ -45,7 +45,7 @@ if(menuItems!=null){
 
   }
   ngOnInit(): void {
-    this.getUser.watch().valueChanges.subscribe(ele=>{
+    this.getUser.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
       this.user=ele.data.getUser;
     })
   }

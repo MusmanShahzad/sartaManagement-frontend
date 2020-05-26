@@ -22,7 +22,4 @@ type;
       this.isLoading=false;
     })
   }
-  
-  
-
 }

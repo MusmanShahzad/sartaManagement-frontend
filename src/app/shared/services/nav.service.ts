@@ -83,9 +83,21 @@ export class NavService {
 getMenu(){
 	// tslint:disable-next-line: radix
 	let type = parseInt(localStorage.getItem('type'));
-	if(type){
+	
+	if(type!=null){
+		console.log(type);
+		if(type==0){
+			this.items.next([
+				{path: '/dashboard', title: 'Dashboard', icon: 'activity', type: 'link', active: true},
+				{ path: '/building', title: 'view Buildings', type: 'link' },
+				{ path: '/room', title: 'Apartments', type: 'link' },
+				{ path: '/request/my', title: 'Received', type: 'link' },
+				{ path: '/complain', title: 'complain', type: 'link' },
+				{	title: 'Chat', icon: 'users', type: 'link',path: '/chat'}
+			]);
+		}
 		//tenant
-		if(type==1){
+		else if(type==1){
 			this.items.next([
 				{
 					path: '/dashboard', title: 'Dashboard', icon: 'activity', type: 'link', active: true
@@ -174,8 +186,7 @@ getMenu(){
 			}
 		]);
 	}
-	}
-	
+	}	
 }
 
 }

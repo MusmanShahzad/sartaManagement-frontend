@@ -3,7 +3,7 @@
     {{item.name}}
   </div>
   <div class="card-body">
-    <h5 class="card-title">Owner Name:{{item.ownersId.userId.name}}</h5>
+    <h5 class="card-title">Owner Name:<a [routerLink]="['../../../userView',item?.ownersId?.userId._id]">{{item.ownersId.userId.name}}</a></h5>
     <p class="card-text">Adresss:{{item.address}}</p>
     <p class="card-text" *ngIf="item.agentId">Agent:{{item.agentId.userId.name}}</p>
     <p class="card-text" *ngIf="item.rooms">Rooms:{{item.rooms.length}}</p>

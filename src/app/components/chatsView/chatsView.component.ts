@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatsViewComponent implements OnInit {
 buildings: Building[];
-  constructor(private GetViewChats:GetViewChatsGQL) { }
-
+  constructor(private GetViewChats:GetViewChatsGQL) { 
+    this.type=localStorage.getItem('type');
+  }
+type;
   ngOnInit() {
     console.log('sending request')
     this.GetViewChats.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{

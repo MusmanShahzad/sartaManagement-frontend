@@ -4,6 +4,7 @@ query GetAllBuilding{
     _id
     name
     address
+    status
     agentId{
       _id
       userId{
@@ -122,6 +123,7 @@ query GetAllBuildingOfOwner($ownerId:ID){
     _id
     name
     address
+    status
     agentId{
       _id
       userId{
@@ -182,6 +184,17 @@ mutation RemoveAgent($buildingId:ID){
     Errors{
       error
       message
+    }
+  }
+}
+mutation BuildingStatusUpdate($buildingId:ID){
+  BuildingStatusUpdate(buildingId:$buildingId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      status
     }
   }
 }

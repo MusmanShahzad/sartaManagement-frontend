@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   graphQL: 'http://localhost:8888/graphql',
-  graphQLSocket: 'wss://localhost:8888/graphql'
+  graphQLSocket: 'ws://localhost:8888/graphql'
 };
 
 /*

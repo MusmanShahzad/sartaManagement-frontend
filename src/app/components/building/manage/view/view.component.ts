@@ -1,4 +1,4 @@
-import { GetBuildingByIdGQL, Building, CreateRequestGQL } from './../../../../shared/graphql/service';
+import { GetBuildingByIdGQL, Building, CreateRequestGQL, BuildingStatusUpdateGQL } from './../../../../shared/graphql/service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ export class ViewComponent implements OnInit {
   building: Building;
   type;
   constructor(private route:ActivatedRoute,private GetBuildingById:GetBuildingByIdGQL,
-    private CreateRequests:CreateRequestGQL,private toastr: ToastrService) { }
+    private CreateRequests:CreateRequestGQL,private toastr: ToastrService,private BuildingStatusUpdate:BuildingStatusUpdateGQL) { }
 
   ngOnInit() {
     this.type=localStorage.getItem('type');
@@ -27,17 +27,29 @@ export class ViewComponent implements OnInit {
       })
     })
   }
-  CreateRequest(id){
-    this.CreateRequests.mutate({building:id}).subscribe(ele=>{
-      if(ele.data.CreateRequest.Errors&&ele.data.CreateRequest.Errors.length>0){
-        ele.data.CreateRequest.Errors.forEach(error=>{
+  // CreateRequest(id){
+  //   this.CreateRequests.mutate({building:id}).subscribe(ele=>{
+  //     if(ele.data.CreateRequest.Errors&&ele.data.CreateRequest.Errors.length>0){
+  //       ele.data.CreateRequest.Errors.forEach(error=>{
+  //         this.toastr.error(error.message,error.error);
+  //       })
+  //     }
+  //     else{
+  //       this.toastr.success('request sended Successfully');
+  //       this.type=-1;
+  //     }
+  //   })
+  // }
+  statusChange(){
+    this.BuildingStatusUpdate.mutate({buildingId:this.building._id}).subscribe(ele=>{
+      if(ele.data.BuildingStatusUpdate.Errors&&ele.data.BuildingStatusUpdate.Errors.length>0){
+        ele.data.BuildingStatusUpdate.Errors.forEach(error=>{
           this.toastr.error(error.message,error.error);
-        })
+        });
+        return;
       }
-      else{
-        this.toastr.success('request sended Successfully');
-        this.type=-1;
-      }
+      this.toastr.success('Building Status Change Success','Success');
+      this.building.status=ele.data.BuildingStatusUpdate.Data.status;
     })
   }
 

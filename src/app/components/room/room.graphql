@@ -3,6 +3,7 @@ query GetAllRooms{
     _id
     name
     address
+    status
     building{
       _id
       name
@@ -17,6 +18,7 @@ query GetAllRooms{
     tenantId{
       _id
       userId{
+        _id
         name
       }
     }
@@ -27,6 +29,7 @@ query getRoomOfOwner{
    getRoomOfOwner{
     _id
     name
+    status
     address
     building{
       _id
@@ -42,9 +45,36 @@ query getRoomOfOwner{
     tenantId{
       _id
       userId{
+        _id
         name
       }
     }
+  }
+}
+query GetRoomById($roomId:ID){
+  GetRoomById(roomId:$roomId){
+    _id
+    name
+    address
+    ownersId{
+      _id
+      userId{
+        _id
+        name
+      }
+    }
+    building{
+      _id
+      name
+    }
+    tenantId{
+      _id
+      userId{
+        _id
+        name
+      }
+    }
+    status
   }
 }
 mutation RemoveTenantFromRoom($roomId:String){
@@ -57,6 +87,7 @@ mutation RemoveTenantFromRoom($roomId:String){
       _id
     name
     address
+    status
     building{
       _id
       name
@@ -74,6 +105,17 @@ mutation RemoveTenantFromRoom($roomId:String){
         name
       }
     }
+    }
+  }
+}
+mutation RoomStatusChange($roomId:ID){
+  RoomStatusChange(roomId:$roomId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      status
     }
   }
 }

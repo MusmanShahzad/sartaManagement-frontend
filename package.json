@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/router": "~9.0.0",
+    "@angular/service-worker": "~9.0.0",
     "@auth0/angular-jwt": "^4.1.2",
     "@graphql-codegen/cli": "^1.13.5",
     "@graphql-codegen/typescript": "^1.13.5",

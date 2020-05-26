@@ -191,6 +191,9 @@ export type Mutation = {
   AddChatOwner?: Maybe<AddBuildingOutput>;
   AddChatAll?: Maybe<AddBuildingOutput>;
   CreateComplain?: Maybe<ComplainOutput>;
+  UserStatusUpdate?: Maybe<RegisterOutput>;
+  BuildingStatusUpdate?: Maybe<AddBuildingOutput>;
+  RoomStatusChange?: Maybe<AddRoomOutput>;
 };
 
 
@@ -272,6 +275,21 @@ export type MutationAddChatAllArgs = {
 
 export type MutationCreateComplainArgs = {
   complain?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationUserStatusUpdateArgs = {
+  userId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationBuildingStatusUpdateArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationRoomStatusChangeArgs = {
+  roomId?: Maybe<Scalars['ID']>;
 };
 
 export type Subscription = {
@@ -470,7 +488,7 @@ export type GetAllBuildingOfOwnerQuery = (
   { __typename?: 'Query' }
   & { GetAllBuildingOfOwner?: Maybe<Array<Maybe<(
     { __typename?: 'building' }
-    & Pick<Building, '_id' | 'name' | 'address'>
+    & Pick<Building, '_id' | 'name' | 'address' | 'status'>
     & { agentId?: Maybe<(
       { __typename?: 'agent' }
       & Pick<Agent, '_id'>
@@ -539,6 +557,25 @@ export type RemoveAgentMutation = (
       { __typename?: 'Error' }
       & Pick<Error, 'error' | 'message'>
     )>>> }
+  )> }
+);
+
+export type BuildingStatusUpdateMutationVariables = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type BuildingStatusUpdateMutation = (
+  { __typename?: 'Mutation' }
+  & { BuildingStatusUpdate?: Maybe<(
+    { __typename?: 'addBuildingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, 'status'>
+    )> }
   )> }
 );
 
@@ -806,7 +843,7 @@ export type GetAllRoomsQuery = (
   { __typename?: 'Query' }
   & { GetAllRooms?: Maybe<Array<Maybe<(
     { __typename?: 'room' }
-    & Pick<Room, '_id' | 'name' | 'address'>
+    & Pick<Room, '_id' | 'name' | 'address' | 'status'>
     & { building?: Maybe<(
       { __typename?: 'building' }
       & Pick<Building, '_id' | 'name'>
@@ -822,7 +859,7 @@ export type GetAllRoomsQuery = (
       & Pick<Tenant, '_id'>
       & { userId?: Maybe<(
         { __typename?: 'user' }
-        & Pick<User, 'name'>
+        & Pick<User, '_id' | 'name'>
       )> }
     )> }
   )>>> }
@@ -835,7 +872,7 @@ export type GetRoomOfOwnerQuery = (
   { __typename?: 'Query' }
   & { getRoomOfOwner?: Maybe<Array<Maybe<(
     { __typename?: 'room' }
-    & Pick<Room, '_id' | 'name' | 'address'>
+    & Pick<Room, '_id' | 'name' | 'status' | 'address'>
     & { building?: Maybe<(
       { __typename?: 'building' }
       & Pick<Building, '_id' | 'name'>
@@ -851,10 +888,41 @@ export type GetRoomOfOwnerQuery = (
       & Pick<Tenant, '_id'>
       & { userId?: Maybe<(
         { __typename?: 'user' }
-        & Pick<User, 'name'>
+        & Pick<User, '_id' | 'name'>
       )> }
     )> }
   )>>> }
+);
+
+export type GetRoomByIdQueryVariables = {
+  roomId?: Maybe<Scalars['ID']>;
+};
+
+
+export type GetRoomByIdQuery = (
+  { __typename?: 'Query' }
+  & { GetRoomById?: Maybe<(
+    { __typename?: 'room' }
+    & Pick<Room, '_id' | 'name' | 'address' | 'status'>
+    & { ownersId?: Maybe<(
+      { __typename?: 'owner' }
+      & Pick<Owner, '_id'>
+      & { userId?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, '_id' | 'name'>
+      )> }
+    )>, building?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, '_id' | 'name'>
+    )>, tenantId?: Maybe<(
+      { __typename?: 'tenant' }
+      & Pick<Tenant, '_id'>
+      & { userId?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, '_id' | 'name'>
+      )> }
+    )> }
+  )> }
 );
 
 export type RemoveTenantFromRoomMutationVariables = {
@@ -871,7 +939,7 @@ export type RemoveTenantFromRoomMutation = (
       & Pick<Error, 'error' | 'message'>
     )>>>, Data?: Maybe<(
       { __typename?: 'room' }
-      & Pick<Room, '_id' | 'name' | 'address'>
+      & Pick<Room, '_id' | 'name' | 'address' | 'status'>
       & { building?: Maybe<(
         { __typename?: 'building' }
         & Pick<Building, '_id' | 'name'>
@@ -889,6 +957,60 @@ export type RemoveTenantFromRoomMutation = (
           { __typename?: 'user' }
           & Pick<User, 'name'>
         )> }
+      )> }
+    )> }
+  )> }
+);
+
+export type RoomStatusChangeMutationVariables = {
+  roomId?: Maybe<Scalars['ID']>;
+};
+
+
+export type RoomStatusChangeMutation = (
+  { __typename?: 'Mutation' }
+  & { RoomStatusChange?: Maybe<(
+    { __typename?: 'addRoomOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'room' }
+      & Pick<Room, 'status'>
+    )> }
+  )> }
+);
+
+export type GetUserByIdQueryVariables = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+
+export type GetUserByIdQuery = (
+  { __typename?: 'Query' }
+  & { getUserById?: Maybe<(
+    { __typename?: 'user' }
+    & Pick<User, '_id' | 'name' | 'email' | 'userType' | 'createdDate' | 'status'>
+  )> }
+);
+
+export type UserStatusUpdateMutationVariables = {
+  userId?: Maybe<Scalars['ID']>;
+};
+
+
+export type UserStatusUpdateMutation = (
+  { __typename?: 'Mutation' }
+  & { UserStatusUpdate?: Maybe<(
+    { __typename?: 'registerOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'registerData' }
+      & { user?: Maybe<(
+        { __typename?: 'user' }
+        & Pick<User, 'status'>
       )> }
     )> }
   )> }
@@ -964,6 +1086,7 @@ export const GetAllBuildingDocument = gql`
     _id
     name
     address
+    status
     agentId {
       _id
       userId {
@@ -1096,6 +1219,7 @@ export const GetAllBuildingOfOwnerDocument = gql`
     _id
     name
     address
+    status
     agentId {
       _id
       userId {
@@ -1185,6 +1309,27 @@ export const RemoveAgentDocument = gql`
   })
   export class RemoveAgentGQL extends Apollo.Mutation<RemoveAgentMutation, RemoveAgentMutationVariables> {
     document = RemoveAgentDocument;
+    
+  }
+export const BuildingStatusUpdateDocument = gql`
+    mutation BuildingStatusUpdate($buildingId: ID) {
+  BuildingStatusUpdate(buildingId: $buildingId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      status
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class BuildingStatusUpdateGQL extends Apollo.Mutation<BuildingStatusUpdateMutation, BuildingStatusUpdateMutationVariables> {
+    document = BuildingStatusUpdateDocument;
     
   }
 export const UpdateBuildingDocument = gql`
@@ -1501,6 +1646,7 @@ export const GetAllRoomsDocument = gql`
     _id
     name
     address
+    status
     building {
       _id
       name
@@ -1515,6 +1661,7 @@ export const GetAllRoomsDocument = gql`
     tenantId {
       _id
       userId {
+        _id
         name
       }
     }
@@ -1534,6 +1681,7 @@ export const GetRoomOfOwnerDocument = gql`
   getRoomOfOwner {
     _id
     name
+    status
     address
     building {
       _id
@@ -1549,6 +1697,7 @@ export const GetRoomOfOwnerDocument = gql`
     tenantId {
       _id
       userId {
+        _id
         name
       }
     }
@@ -1563,6 +1712,42 @@ export const GetRoomOfOwnerDocument = gql`
     document = GetRoomOfOwnerDocument;
     
   }
+export const GetRoomByIdDocument = gql`
+    query GetRoomById($roomId: ID) {
+  GetRoomById(roomId: $roomId) {
+    _id
+    name
+    address
+    ownersId {
+      _id
+      userId {
+        _id
+        name
+      }
+    }
+    building {
+      _id
+      name
+    }
+    tenantId {
+      _id
+      userId {
+        _id
+        name
+      }
+    }
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetRoomByIdGQL extends Apollo.Query<GetRoomByIdQuery, GetRoomByIdQueryVariables> {
+    document = GetRoomByIdDocument;
+    
+  }
 export const RemoveTenantFromRoomDocument = gql`
     mutation RemoveTenantFromRoom($roomId: String) {
   RemoveTenantFromRoom(roomId: $roomId) {
@@ -1574,6 +1759,7 @@ export const RemoveTenantFromRoomDocument = gql`
       _id
       name
       address
+      status
       building {
         _id
         name
@@ -1601,6 +1787,70 @@ export const RemoveTenantFromRoomDocument = gql`
   })
   export class RemoveTenantFromRoomGQL extends Apollo.Mutation<RemoveTenantFromRoomMutation, RemoveTenantFromRoomMutationVariables> {
     document = RemoveTenantFromRoomDocument;
+    
+  }
+export const RoomStatusChangeDocument = gql`
+    mutation RoomStatusChange($roomId: ID) {
+  RoomStatusChange(roomId: $roomId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      status
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RoomStatusChangeGQL extends Apollo.Mutation<RoomStatusChangeMutation, RoomStatusChangeMutationVariables> {
+    document = RoomStatusChangeDocument;
+    
+  }
+export const GetUserByIdDocument = gql`
+    query getUserById($id: ID) {
+  getUserById(id: $id) {
+    _id
+    name
+    email
+    userType
+    createdDate
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetUserByIdGQL extends Apollo.Query<GetUserByIdQuery, GetUserByIdQueryVariables> {
+    document = GetUserByIdDocument;
+    
+  }
+export const UserStatusUpdateDocument = gql`
+    mutation UserStatusUpdate($userId: ID) {
+  UserStatusUpdate(userId: $userId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      user {
+        status
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UserStatusUpdateGQL extends Apollo.Mutation<UserStatusUpdateMutation, UserStatusUpdateMutationVariables> {
+    document = UserStatusUpdateDocument;
     
   }
 export const GetUserDocument = gql`

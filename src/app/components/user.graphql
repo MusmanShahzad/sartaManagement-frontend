@@ -1,0 +1,23 @@
+query getUserById($id:ID){
+  getUserById(id:$id){
+    _id
+    name
+    email
+    userType
+    createdDate
+    status
+  }
+}
+mutation UserStatusUpdate($userId:ID){
+  UserStatusUpdate(userId:$userId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      user{
+        status
+      }
+    }
+  }
+}
