@@ -11,7 +11,11 @@ export class BuildingCardComponent implements OnInit {
 @Input() item:Building;
 requestLoading = false;
 requestVisible = true;
-  constructor(private toastr: ToastrService,private CreateRequests:CreateRequestGQL) { }
+type;
+  constructor(private toastr: ToastrService,private CreateRequests:CreateRequestGQL) { 
+    this.type = localStorage.getItem('type');
+  }
+
 
   ngOnInit() {
     console.log(this.item);;

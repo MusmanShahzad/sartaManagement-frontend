@@ -11,6 +11,6 @@
   </div>
   <div class="card-footer">
     <button [routerLink]="item._id" class="btn btn-primary m-2">View More</button>
-    <button  class="btn btn-warning" [disabled]="requestLoading" (click)="CreateRequest(item._id)" *ngIf="requestVisible">{{requestLoading ? 'Loading':'Send Request'}}</button>
+    <button  class="btn btn-warning" [disabled]="requestLoading" (click)="CreateRequest(item._id)" *ngIf="requestVisible&&type>1">{{requestLoading ? 'Loading':'Send Request'}}</button>
   </div>
 </div>
