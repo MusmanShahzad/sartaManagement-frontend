@@ -49,6 +49,10 @@ if(menuItems!=null){
       this.user=ele.data.getUser;
     })
   }
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
+  }
 
   // Active Nave state
   setNavActive(item) {

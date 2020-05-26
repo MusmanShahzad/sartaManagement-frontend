@@ -4,7 +4,7 @@
       <form [formGroup]="AddBuildingForm">
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" formControlName="name" placeholder="Building Name">
+            <input type="text" class="form-control" formControlName="name" placeholder="Apartments Name">
             <div *ngIf="AddBuildingForm.get('name').touched && AddBuildingForm.get('name').errors?.required"
 								class="text text-danger mt-1">
 								Name is required
@@ -22,14 +22,14 @@
           <div [formGroupName]="i">
           <hr style="border-top: 1px solid #8c8b8b;"/>
           <div class="col m-5">
-            <input type="text" class="form-control" formControlName="name" placeholder="Room Name">
+            <input type="text" class="form-control" formControlName="name" placeholder="Unit Name">
             <div *ngIf="room.get('name').touched && room.get('name').errors?.required"
 								class="text text-danger mt-1">
 								Name is required
 							</div>
           </div>
           <div class="col m-5">
-            <textarea class="form-control" formControlName="address" placeholder="Room Address"></textarea>
+            <textarea class="form-control" formControlName="address" placeholder="Unit Address"></textarea>
             {{room.get('address').valid}}
             <div *ngIf="room.get('address').touched && room.get('address').errors?.required"
 								class="text text-danger mt-1">

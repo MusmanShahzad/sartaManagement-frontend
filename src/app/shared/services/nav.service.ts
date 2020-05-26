@@ -89,11 +89,11 @@ getMenu(){
 		if(type==0){
 			this.items.next([
 				{path: '/dashboard', title: 'Dashboard', icon: 'activity', type: 'link', active: true},
-				{ path: '/building', title: 'view Buildings', type: 'link' },
-				{ path: '/room', title: 'Apartments', type: 'link' },
+				{ path: '/building', title: 'view Apartments', type: 'link' },
+				{ path: '/room', title: 'Units', type: 'link' },
 				{ path: '/request/my', title: 'Received', type: 'link' },
 				{ path: '/complain', title: 'complain', type: 'link' },
-				{	title: 'Chat', icon: 'users', type: 'link',path: '/chat'}
+				{title: 'Chat', icon: 'users', type: 'link',path: '/chat'}
 			]);
 		}
 		//tenant
@@ -103,14 +103,14 @@ getMenu(){
 					path: '/dashboard', title: 'Dashboard', icon: 'activity', type: 'link', active: true
 				},
 				{
-					title: 'Apartments', icon: 'github', type: 'sub', badgeType: 'primary', children:
+					title: 'Units', icon: 'github', type: 'sub', badgeType: 'primary', children:
 						[
 							{
-								title: 'Room manage', type: 'sub', children: [
-									{ path: '/room/manage/my', title: 'My Apartments', type: 'link' }
+								title: 'Unit manage', type: 'sub', children: [
+									{ path: '/room/manage/my', title: 'My Unit', type: 'link' }
 								]
 							},
-							{ path: '/room', title: 'view Apartments', type: 'link' },
+							{ path: '/room', title: 'view Unit', type: 'link' },
 						]
 				},
 				{title:'Complain',type:'sub', children:[
@@ -130,26 +130,26 @@ getMenu(){
 						path: '/dashboard', title: 'Dashboard', icon: 'activity', type: 'link', active: true
 					},
 					{
-						title: 'Building', icon: 'github', type: 'sub', badgeType: 'primary', children:
-							[
-								{
-									title: 'Buildings manage', type: 'sub', children: [
-										{ path: '/building/manage/add', title: 'Add building', type: 'link' },
-										{ path: '/building/manage/my', title: 'View/Edit building', type: 'link' }
-									]
-								},
-								{ path: '/building', title: 'view Buildings', type: 'link' },
-							]
-					},
-					{
 						title: 'Apartments', icon: 'github', type: 'sub', badgeType: 'primary', children:
 							[
 								{
-									title: 'Room manage', type: 'sub', children: [
-										{ path: '/room/manage/my', title: 'View/Edit Apartments', type: 'link' }
+									title: 'Apartments manage', type: 'sub', children: [
+										{ path: '/building/manage/add', title: 'Add Apartments', type: 'link' },
+										{ path: '/building/manage/my', title: 'View/Edit Apartments', type: 'link' }
 									]
 								},
-								{ path: '/room', title: 'view Apartments', type: 'link' },
+								{ path: '/building', title: 'view Apartments', type: 'link' },
+							]
+					},
+					{
+						title: 'Unit', icon: 'github', type: 'sub', badgeType: 'primary', children:
+							[
+								{
+									title: 'Unit manage', type: 'sub', children: [
+										{ path: '/room/manage/my', title: 'View/Edit Unit', type: 'link' }
+									]
+								},
+								{ path: '/room', title: 'view Unit', type: 'link' },
 							]
 					},
 					{title:'Request',type:'sub', children:[
@@ -170,14 +170,14 @@ getMenu(){
 				path: '/dashboard', title: 'Dashboard', icon: 'activity', type: 'link', active: true
 			},
 			{
-				title: 'Building', icon: 'github', type: 'sub', badgeType: 'primary', children:
+				title: 'Apartments', icon: 'github', type: 'sub', badgeType: 'primary', children:
 					[
 						{
-							title: 'Buildings manage', type: 'sub', children: [
-								{ path: '/building/manage/my', title: 'my building', type: 'link' }
+							title: 'Apartment manage', type: 'sub', children: [
+								{ path: '/building/manage/my', title: 'my Apartment', type: 'link' }
 							]
 						},
-						{ path: '/building', title: 'view Buildings', type: 'link' },
+						{ path: '/building', title: 'view Apartment', type: 'link' },
 					]
 			},
 			{ path: '/complain', title: 'complain', type: 'link' },
@@ -186,7 +186,7 @@ getMenu(){
 			}
 		]);
 	}
-	}	
+}
 }
 
 }

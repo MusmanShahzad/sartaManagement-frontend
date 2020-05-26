@@ -20,11 +20,11 @@
     <div class="col-12 col-md-12 col-sm-12" *ngIf="room">
       <div class="card">
         <div class="card-header">
-          Room Name: {{room.name}}
+          Unit Name: {{room.name}}
         </div>
         <div class="card-body">
           <h2 class="card-title">EcMember:<a [routerLink]="['../../../userView',room.ownersId.userId._id]">{{room?.ownersId?.userId?.name}}</a></h2>
-          <h5 class="card-title">Building:<a [routerLink]="['../../../building',room?.building._id]">{{room.building.name}}</a></h5>
+          <h5 class="card-title">Apartment:<a [routerLink]="['../../../building',room?.building._id]">{{room.building.name}}</a></h5>
           <p class="card-text">Address: {{room.address}}</p>
           <p class="card-text" *ngIf="room.tenantId">tenant Name:<a [routerLink]="['../../../userView',room.tenantId.userId._id]">{{room.tenantId.userId.name}}</a></p>
           <p class="card-text" *ngIf="!room.tenantId">tenant Name: No Tenant</p>

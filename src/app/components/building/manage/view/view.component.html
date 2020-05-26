@@ -27,12 +27,12 @@
           <div class="card-body">
             <h5 class="card-title">{{building.name}}</h5>
             <p class="card-text">Address:{{building.address}}</p>
-            <p class="card-text">owner:{{building.ownersId.userId.name}}</p>
+            <p class="card-text">Oc Admin:{{building.ownersId.userId.name}}</p>
             <p class="card-text" *ngIf="building.agentId">Agent: {{building.agentId.userId.name}}</p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let room of building.rooms">
-              <a [routerLink]="['../../room/view',room?.roomId?._id]">Room:{{room?.roomId?.name}}</a>
+              <a [routerLink]="['../../room/view',room?.roomId?._id]">Unit:{{room?.roomId?.name}}</a>
             </li>
           </ul>
           <div class="card-footer" *ngIf="type ==0">
