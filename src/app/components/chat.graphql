@@ -2,6 +2,7 @@ query GetViewChats{
   GetViewChats{
     _id
     name
+    status
   }
 }
 mutation AddChatOwner($buildingId:ID,$message:String,$url:String){

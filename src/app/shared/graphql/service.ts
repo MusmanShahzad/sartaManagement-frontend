@@ -637,7 +637,7 @@ export type GetViewChatsQuery = (
   { __typename?: 'Query' }
   & { GetViewChats?: Maybe<Array<Maybe<(
     { __typename?: 'building' }
-    & Pick<Building, '_id' | 'name'>
+    & Pick<Building, '_id' | 'name' | 'status'>
   )>>> }
 );
 
@@ -1389,6 +1389,7 @@ export const GetViewChatsDocument = gql`
   GetViewChats {
     _id
     name
+    status
   }
 }
     `;
