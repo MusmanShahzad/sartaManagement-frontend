@@ -19,7 +19,7 @@ export class ViewComponent implements OnInit {
     this.type=localStorage.getItem('type');
     this.isLoading = true;
     this.route.paramMap.subscribe(queryParams => {
-      this.GetBuildingById.watch({buildingId: queryParams.get('id')}).valueChanges.subscribe(ele=>{
+      this.GetBuildingById.watch({buildingId: queryParams.get('id')},{fetchPolicy:'network-only'}).valueChanges.subscribe(ele=>{
         setTimeout(()=>{
           this.building=ele.data.GetBuildingById;
           this.isLoading = false;

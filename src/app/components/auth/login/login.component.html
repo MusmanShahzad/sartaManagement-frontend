@@ -2,7 +2,7 @@
 	<div class="auth-bg">
 		<div class="authentication-box">
 			<div class="text-center">
-                <img src="https://media-exp1.licdn.com/dms/image/C4E0BAQG88Muag-ZsIA/company-logo_200_200/0?e=2159024400&v=beta&t=bh5olzsdrQuK_rToOs7k76WK45gmnNH_QAUGVB-RgQw" alt="F4F Logo" class="img-fluid">
+                <img src="https://media-exp1.licdn.com/dms/image/C510BAQHDYrY2-kmvNA/company-logo_200_200/0?e=2159024400&v=beta&t=oVsXk-PyUGPaqxY86mjlSasaHXtJZfN3Z9vQIe-5x5I" alt="Logo" class="img-fluid">
             </div>
 			<div class="card mt-4">
 				<div class="card-body">
@@ -27,6 +27,10 @@
 							<label class="col-form-label">Password</label>
 							<input class="form-control" type="password" formControlName="password" required="">
 							<div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required"
+								class="text text-danger mt-1">
+								Password is required
+							</div>
+							<div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.minLength"
 								class="text text-danger mt-1">
 								Password is required
 							</div>

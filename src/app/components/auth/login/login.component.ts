@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private toastr: ToastrService) {
     this.loginForm = fb.group({
-      email: ['test@gmail.com', [Validators.required, Validators.email]],
-      password: ['test123', Validators.required]
+      email: ['owner@gmail.com', [Validators.required, Validators.email]],
+      password: ['12345678', [Validators.required,Validators.minLength(8)]]
     });
   }
 

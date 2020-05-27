@@ -60,6 +60,7 @@ export class EditComponent implements OnInit {
       this.rooms.removeAt(index);
     }
     onSubmit(form){
+      console.log(form.value);
       this.UpdateBuilding.mutate({...form.value,id:this.id}).subscribe(ele=>{
         if(ele.errors&& ele.errors.length>0){
           ele.errors.forEach(error=>{

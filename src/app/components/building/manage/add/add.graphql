@@ -1,5 +1,5 @@
-mutation UpdateBuilding($name:String,$address:String,$room:[roomsInput],$id:ID){
- UpdateBuilding(name:$name,address:$address,rooms:$room,id:$id){
+mutation UpdateBuilding($name:String,$address:String,$rooms:[roomsInput],$id:ID){
+ UpdateBuilding(name:$name,address:$address,rooms:$rooms,id:$id){
   Errors{
       error
       message

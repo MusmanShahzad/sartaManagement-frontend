@@ -1,7 +1,16 @@
-import { RemoveTenantFromRoomGQL } from './../../../../shared/graphql/service';
-import { Component, OnInit } from '@angular/core';
-import { GetRoomOfOwnerGQL } from 'src/app/shared/graphql/service';
-import { ToastrService } from 'ngx-toastr';
+import {
+  RemoveTenantFromRoomGQL
+} from './../../../../shared/graphql/service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  GetRoomOfOwnerGQL
+} from 'src/app/shared/graphql/service';
+import {
+  ToastrService
+} from 'ngx-toastr';
 
 @Component({
   selector: 'app-myRoom',
@@ -11,29 +20,37 @@ import { ToastrService } from 'ngx-toastr';
 export class MyRoomComponent implements OnInit {
   rooms;
   type;
-  isLoading:boolean = false;
-  constructor(private getRoomOfOwner:GetRoomOfOwnerGQL,private toastr: ToastrService,
-    private RemoveTenantFromRoom:RemoveTenantFromRoomGQL) { }
+  isLoading: boolean = false;
+  constructor(private getRoomOfOwner: GetRoomOfOwnerGQL, private toastr: ToastrService,
+    private RemoveTenantFromRoom: RemoveTenantFromRoomGQL) {}
 
   ngOnInit() {
     this.type = localStorage.getItem('type');
     this.isLoading = true;
-    this.getRoomOfOwner.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe(element=>{
+    this.getRoomOfOwner.watch({}, {
+      fetchPolicy: 'network-only'
+    }).valueChanges.subscribe(element => {
       this.rooms = element.data.getRoomOfOwner;
-      this.isLoading=false;
+      this.isLoading = false;
     })
   }
-  RemoveTenant(id){
-    console.log(id);
-    this.RemoveTenantFromRoom.mutate({roomId: id}).subscribe(ele=>{
-      if(ele.data.RemoveTenantFromRoom.Errors&&ele.data.RemoveTenantFromRoom.Errors.length>0){
-        ele.data.RemoveTenantFromRoom.Errors.forEach(error=>{
-          this.toastr.error(error.message,error.error);
+  RemoveTenant(id) {
+    this.RemoveTenantFromRoom.mutate({
+      roomId: id
+    }).subscribe(ele => {
+      if (ele.data.RemoveTenantFromRoom.Errors && ele.data.RemoveTenantFromRoom.Errors.length > 0) {
+        ele.data.RemoveTenantFromRoom.Errors.forEach(error => {
+          this.toastr.error(error.message, error.error);
         })
-      }
-      else{
+      } else {
         this.toastr.success('request sended Successfully');
-        this.type=-1;
+        this.isLoading = true;
+        this.getRoomOfOwner.watch({}, {
+          fetchPolicy: 'network-only'
+        }).valueChanges.subscribe(element => {
+          this.rooms = element.data.getRoomOfOwner;
+          this.isLoading = false;
+        })
       }
     })
   }

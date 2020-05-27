@@ -41,7 +41,8 @@ get room(){
     this.rooms.removeAt(index);
   }
   onSubmit(form){
-    this.AddBuilding.mutate(form.value).subscribe(ele=>{
+    console.log(form.value);
+    this.AddBuilding.mutate({...form.value}).subscribe(ele=>{
       if(ele.errors&& ele.errors.length>0){
         ele.errors.forEach(error=>{
           this.toastr.error(error.message,'server error');

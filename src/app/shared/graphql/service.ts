@@ -582,7 +582,7 @@ export type BuildingStatusUpdateMutation = (
 export type UpdateBuildingMutationVariables = {
   name?: Maybe<Scalars['String']>;
   address?: Maybe<Scalars['String']>;
-  room?: Maybe<Array<Maybe<RoomsInput>>>;
+  rooms?: Maybe<Array<Maybe<RoomsInput>>>;
   id?: Maybe<Scalars['ID']>;
 };
 
@@ -1333,8 +1333,8 @@ export const BuildingStatusUpdateDocument = gql`
     
   }
 export const UpdateBuildingDocument = gql`
-    mutation UpdateBuilding($name: String, $address: String, $room: [roomsInput], $id: ID) {
-  UpdateBuilding(name: $name, address: $address, rooms: $room, id: $id) {
+    mutation UpdateBuilding($name: String, $address: String, $rooms: [roomsInput], $id: ID) {
+  UpdateBuilding(name: $name, address: $address, rooms: $rooms, id: $id) {
     Errors {
       error
       message
