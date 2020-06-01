@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 col-md-12 col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h1>Add Booking</h1>
+        </div>
+        <div class="card-body">
+          <form class="form-group" [formGroup]="bookingForm">
+            <label for="bookingText"></label>
+            <input type="email" class="form-control" id="bookingText" aria-describedby="emailHelp" placeholder="Enter Booking Text" 
+            formControlName="booking">
+            
+          
+          <div class="form-group">
+            <label for="dateFields">Date</label>
+            <input type="text" class="form-control" id="dateFields" placeholder="Date" bsDatepicker  formControlName="date">
+          </div>
+          <div class="form-group">
+            <select class="form-control" formControlName="type">
+              <option value="">None</option>
+              <option value="Bar-BQ">Bar Q</option>
+              <option value="Party">Parties</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

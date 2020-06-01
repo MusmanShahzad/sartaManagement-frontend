@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="col-12 col-md-12 col-sm-12">
+      <form [formGroup]="addContractorForm">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" placeholder=" name" formControlName="name">
+            <p class="text-danger" *ngIf="name.touched&&name.errors?.required">Name is required</p>
+          </div>
+          <div class="col">
+            <input type="email" class="form-control" placeholder="Email name" formControlName="email">
+            <p class="text-danger" *ngIf="email.touched&&email.errors?.required">Email is required</p>
+            <p class="text-danger" *ngIf="email.dirty&&email.errors?.email">Email is not valid</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Phone No" formControlName="phoneNo">
+            <p class="text-danger" *ngIf="phoneNo.touched&&phoneNo.errors?.required">Phone No is required</p>
+          </div>
+          <div class="col">
+            <input type="number" class="form-control" placeholder="Price" formControlName="price">
+            <p class="text-danger" *ngIf="price.touched&&price.errors?.required">Price is required</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <select class="form-control" formControlName="type">
+              <option value="" select>None</option>
+              <option value="Cleaner">Cleaner</option>
+              <option value="Repairer">Repairer</option>
+            </select>
+            <p class="text-danger" *ngIf="type.touched&&type.errors?.required">Price is required</p>
+          </div>
+          
+        </div>
+        <button class="btn btn-primary" [disabled]="!addContractorForm.dirty&&!addContractorForm.valid" (click)="submit()">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

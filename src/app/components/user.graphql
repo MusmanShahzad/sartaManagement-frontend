@@ -21,3 +21,12 @@ mutation UserStatusUpdate($userId:ID){
     }
   }
 }
+query GetUsersOfOwner{
+  GetUsersOfOwner{
+    _id
+    name
+    email
+    userType
+    status
+  }
+}

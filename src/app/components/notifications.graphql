@@ -1,0 +1,24 @@
+mutation CreateNotification($notification:String,$userIds:[ID],$file:Upload){
+  CreateNotification(notification:$notification,userIds:$userIds,file:$file){
+    notification
+    url
+    userId{
+      _id
+      name
+      email
+    }
+    date
+  }
+}
+query GetAllNotificationsOfUser{
+  GetAllNotificationsOfUser{
+    notification
+    url
+    userId{
+      _id
+      name
+      userType
+    }
+    date
+  }
+}

@@ -1,5 +1,5 @@
-mutation CreateComplain($complain:String){
-  CreateComplain(complain:$complain){
+mutation CreateComplain($complain:String,$file:Upload){
+  CreateComplain(complain:$complain,file:$file){
     Errors{
       error
       message
@@ -8,7 +8,9 @@ mutation CreateComplain($complain:String){
 }
 query GetAllComplaints{
   GetAllComplaints{
+    _id
     complain
+    url
     userId{
       _id
       name
@@ -22,5 +24,49 @@ query GetAllComplaints{
       name
     }
     status
+  }
+}
+query GetAllComplaintsOfOwner{
+  GetAllComplaintsOfOwner{
+    _id
+    complain
+    url
+    userId{
+      _id
+      name
+    }
+    building{
+      _id
+      name
+    }
+    roomId{
+      _id
+      name
+    }
+    status
+  }
+}
+mutation AcceptComplain($complainId:ID){
+  AcceptComplain(complainId:$complainId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      status
+    }
+  }
+}
+mutation RejectComplain($complainId:ID){
+  RejectComplain(complainId:$complainId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      status
+    }
   }
 }

@@ -17,6 +17,10 @@
         </a>
           <div class="media-body ml-3">
             <div class="bg-light rounded py-2 px-3 mb-2">
+              <div *ngIf="message.url">
+                <img *ngIf="checkImageExtension(message.url)" src="{{message.url}}"/>
+                <mat-video *ngIf="checkVideoExtension(message.url)" src="{{message.url}}"></mat-video>
+              </div>
               <p class="small text-muted">{{message.userId.name}} | {{message.userId.userType|type}}</p>
               <p class="text-small mb-0 text-muted">{{message.message}}</p>
             </div>
@@ -28,6 +32,12 @@
         <div class="media w-50 ml-auto mb-3" *ngIf="message.userId?._id==userId">
           <div class="media-body">
             <div class="bg-primary rounded py-2 px-3 mb-2">
+              <div *ngIf="message.url">
+                <img *ngIf="checkImageExtension(message.url)" src="{{message.url}}"/>
+                <mat-video *ngIf="checkVideoExtension(message.url)" src="{{message.url}}"></mat-video>
+                <a class="btn btn-success" *ngIf="!checkVideoExtension(message.url)&&!checkImageExtension(message.url)" href="{{message.url}}">Download file</a>
+              </div>
+              
               <p class="text-small mb-0 text-white">{{message.message}}</p>
             </div>
             <p class="small text-muted">{{message.date|dateConvertor}}</p>
@@ -64,6 +74,7 @@
         <div class="input-group">
           <input type="text" placeholder="Type a message" aria-describedby="button-addon2" formControlName="message" class="form-control rounded-0 border-0 py-4 bg-light">
           <div class="input-group-append">
+            <input  (change)="fileChange($event)"  type="file"   class="form-control mb-0"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
             <button id="button-addon2" type="submit" class="btn btn-link" [disabled]="sendDisable" (click)="sendMessage()"> <i class="fa fa-paper-plane"></i></button>
           </div>
         </div>

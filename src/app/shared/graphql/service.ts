@@ -120,6 +120,17 @@ export type Building = {
   messageOwner?: Maybe<Array<Maybe<Message>>>;
 };
 
+export type Booking = {
+   __typename?: 'booking';
+  _id?: Maybe<Scalars['ID']>;
+  booking?: Maybe<Scalars['String']>;
+  userId?: Maybe<User>;
+  type?: Maybe<Scalars['String']>;
+  building?: Maybe<Building>;
+  date?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Int']>;
+};
+
 export type Error = {
    __typename?: 'Error';
   error?: Maybe<Scalars['String']>;
@@ -163,17 +174,44 @@ export type RoomsInput = {
 
 export type Complain = {
    __typename?: 'complain';
+  _id?: Maybe<Scalars['ID']>;
   complain?: Maybe<Scalars['String']>;
   userId?: Maybe<User>;
   building?: Maybe<Building>;
+  url?: Maybe<Scalars['String']>;
   roomId?: Maybe<Room>;
-  status?: Maybe<Scalars['Boolean']>;
+  status?: Maybe<Scalars['Int']>;
 };
 
 export type ComplainOutput = {
    __typename?: 'complainOutput';
   Errors?: Maybe<Array<Maybe<Error>>>;
   Data?: Maybe<Complain>;
+};
+
+export type BookingOutput = {
+   __typename?: 'bookingOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Booking>;
+};
+
+export type Contractors = {
+   __typename?: 'contractors';
+  _id?: Maybe<Scalars['ID']>;
+  userId?: Maybe<User>;
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNo?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+};
+
+export type Notification = {
+   __typename?: 'notification';
+  notification?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  userId?: Maybe<User>;
+  date?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -191,9 +229,17 @@ export type Mutation = {
   AddChatOwner?: Maybe<AddBuildingOutput>;
   AddChatAll?: Maybe<AddBuildingOutput>;
   CreateComplain?: Maybe<ComplainOutput>;
+  AcceptComplain?: Maybe<ComplainOutput>;
+  RejectComplain?: Maybe<ComplainOutput>;
   UserStatusUpdate?: Maybe<RegisterOutput>;
   BuildingStatusUpdate?: Maybe<AddBuildingOutput>;
   RoomStatusChange?: Maybe<AddRoomOutput>;
+  AddBooking?: Maybe<BookingOutput>;
+  BookingStatusAccept?: Maybe<BookingOutput>;
+  BookingStatusReject?: Maybe<BookingOutput>;
+  CreateContractor?: Maybe<Contractors>;
+  DeleteContractor?: Maybe<Contractors>;
+  CreateNotification?: Maybe<Array<Maybe<Notification>>>;
 };
 
 
@@ -262,19 +308,30 @@ export type MutationApproveRequestArgs = {
 export type MutationAddChatOwnerArgs = {
   buildingId?: Maybe<Scalars['ID']>;
   message?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
 };
 
 
 export type MutationAddChatAllArgs = {
   buildingId?: Maybe<Scalars['ID']>;
   message?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
 };
 
 
 export type MutationCreateComplainArgs = {
   complain?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
+};
+
+
+export type MutationAcceptComplainArgs = {
+  complainId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationRejectComplainArgs = {
+  complainId?: Maybe<Scalars['ID']>;
 };
 
 
@@ -290,6 +347,44 @@ export type MutationBuildingStatusUpdateArgs = {
 
 export type MutationRoomStatusChangeArgs = {
   roomId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationAddBookingArgs = {
+  date?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  booking?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationBookingStatusAcceptArgs = {
+  bookingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationBookingStatusRejectArgs = {
+  bookingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationCreateContractorArgs = {
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNo?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+};
+
+
+export type MutationDeleteContractorArgs = {
+  id?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationCreateNotificationArgs = {
+  notification?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
+  userIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
 export type Subscription = {
@@ -313,6 +408,7 @@ export type Query = {
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getUserById?: Maybe<User>;
   getUser?: Maybe<User>;
+  GetUsersOfOwner?: Maybe<Array<Maybe<User>>>;
   GetAllRooms?: Maybe<Array<Maybe<Room>>>;
   GetRoomById?: Maybe<Room>;
   getRoomOfOwner?: Maybe<Array<Maybe<Room>>>;
@@ -324,6 +420,10 @@ export type Query = {
   GetRequestOfUser?: Maybe<Array<Maybe<Request>>>;
   GetViewChats?: Maybe<Array<Maybe<Building>>>;
   GetAllComplaints?: Maybe<Array<Maybe<Complain>>>;
+  GetAllComplaintsOfOwner?: Maybe<Array<Maybe<Complain>>>;
+  GetAllBookingsOfUser?: Maybe<Array<Maybe<Booking>>>;
+  GetAllContractors?: Maybe<Array<Maybe<Contractors>>>;
+  GetAllNotificationsOfUser?: Maybe<Array<Maybe<Notification>>>;
 };
 
 
@@ -379,6 +479,83 @@ export type RegisterUserMutation = (
         { __typename?: 'user' }
         & Pick<User, '_id' | 'name' | 'email' | 'userType' | 'createdDate' | 'status'>
       )> }
+    )> }
+  )> }
+);
+
+export type AddBookingMutationVariables = {
+  date?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  booking?: Maybe<Scalars['String']>;
+};
+
+
+export type AddBookingMutation = (
+  { __typename?: 'Mutation' }
+  & { AddBooking?: Maybe<(
+    { __typename?: 'bookingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'booking' }
+      & Pick<Booking, '_id'>
+    )> }
+  )> }
+);
+
+export type GetAllBookingsOfUserQueryVariables = {};
+
+
+export type GetAllBookingsOfUserQuery = (
+  { __typename?: 'Query' }
+  & { GetAllBookingsOfUser?: Maybe<Array<Maybe<(
+    { __typename?: 'booking' }
+    & Pick<Booking, '_id' | 'booking' | 'type' | 'date' | 'status'>
+    & { userId?: Maybe<(
+      { __typename?: 'user' }
+      & Pick<User, '_id' | 'name'>
+    )>, building?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, '_id' | 'name'>
+    )> }
+  )>>> }
+);
+
+export type BookingStatusAcceptMutationVariables = {
+  bookingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type BookingStatusAcceptMutation = (
+  { __typename?: 'Mutation' }
+  & { BookingStatusAccept?: Maybe<(
+    { __typename?: 'bookingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'booking' }
+      & Pick<Booking, '_id' | 'status'>
+    )> }
+  )> }
+);
+
+export type BookingStatusRejectMutationVariables = {
+  bookingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type BookingStatusRejectMutation = (
+  { __typename?: 'Mutation' }
+  & { BookingStatusReject?: Maybe<(
+    { __typename?: 'bookingOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'booking' }
+      & Pick<Booking, '_id' | 'status'>
     )> }
   )> }
 );
@@ -644,7 +821,7 @@ export type GetViewChatsQuery = (
 export type AddChatOwnerMutationVariables = {
   buildingId?: Maybe<Scalars['ID']>;
   message?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -673,7 +850,7 @@ export type AddChatOwnerMutation = (
 export type AddChatAllMutationVariables = {
   buildingId?: Maybe<Scalars['ID']>;
   message?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -743,6 +920,7 @@ export type ChatAllUpdateSubscription = (
 
 export type CreateComplainMutationVariables = {
   complain?: Maybe<Scalars['String']>;
+  file?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -764,7 +942,7 @@ export type GetAllComplaintsQuery = (
   { __typename?: 'Query' }
   & { GetAllComplaints?: Maybe<Array<Maybe<(
     { __typename?: 'complain' }
-    & Pick<Complain, 'complain' | 'status'>
+    & Pick<Complain, '_id' | 'complain' | 'url' | 'status'>
     & { userId?: Maybe<(
       { __typename?: 'user' }
       & Pick<User, '_id' | 'name'>
@@ -774,6 +952,127 @@ export type GetAllComplaintsQuery = (
     )>, roomId?: Maybe<(
       { __typename?: 'room' }
       & Pick<Room, '_id' | 'name'>
+    )> }
+  )>>> }
+);
+
+export type GetAllComplaintsOfOwnerQueryVariables = {};
+
+
+export type GetAllComplaintsOfOwnerQuery = (
+  { __typename?: 'Query' }
+  & { GetAllComplaintsOfOwner?: Maybe<Array<Maybe<(
+    { __typename?: 'complain' }
+    & Pick<Complain, '_id' | 'complain' | 'url' | 'status'>
+    & { userId?: Maybe<(
+      { __typename?: 'user' }
+      & Pick<User, '_id' | 'name'>
+    )>, building?: Maybe<(
+      { __typename?: 'building' }
+      & Pick<Building, '_id' | 'name'>
+    )>, roomId?: Maybe<(
+      { __typename?: 'room' }
+      & Pick<Room, '_id' | 'name'>
+    )> }
+  )>>> }
+);
+
+export type AcceptComplainMutationVariables = {
+  complainId?: Maybe<Scalars['ID']>;
+};
+
+
+export type AcceptComplainMutation = (
+  { __typename?: 'Mutation' }
+  & { AcceptComplain?: Maybe<(
+    { __typename?: 'complainOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'complain' }
+      & Pick<Complain, '_id' | 'status'>
+    )> }
+  )> }
+);
+
+export type RejectComplainMutationVariables = {
+  complainId?: Maybe<Scalars['ID']>;
+};
+
+
+export type RejectComplainMutation = (
+  { __typename?: 'Mutation' }
+  & { RejectComplain?: Maybe<(
+    { __typename?: 'complainOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>>, Data?: Maybe<(
+      { __typename?: 'complain' }
+      & Pick<Complain, '_id' | 'status'>
+    )> }
+  )> }
+);
+
+export type CreateContractorMutationVariables = {
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNo?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+};
+
+
+export type CreateContractorMutation = (
+  { __typename?: 'Mutation' }
+  & { CreateContractor?: Maybe<(
+    { __typename?: 'contractors' }
+    & Pick<Contractors, '_id' | 'name' | 'email' | 'phoneNo' | 'type' | 'price'>
+  )> }
+);
+
+export type GetAllContractorsQueryVariables = {};
+
+
+export type GetAllContractorsQuery = (
+  { __typename?: 'Query' }
+  & { GetAllContractors?: Maybe<Array<Maybe<(
+    { __typename?: 'contractors' }
+    & Pick<Contractors, '_id' | 'name' | 'email' | 'phoneNo' | 'type' | 'price'>
+  )>>> }
+);
+
+export type CreateNotificationMutationVariables = {
+  notification?: Maybe<Scalars['String']>;
+  userIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  file?: Maybe<Scalars['Upload']>;
+};
+
+
+export type CreateNotificationMutation = (
+  { __typename?: 'Mutation' }
+  & { CreateNotification?: Maybe<Array<Maybe<(
+    { __typename?: 'notification' }
+    & Pick<Notification, 'notification' | 'url' | 'date'>
+    & { userId?: Maybe<(
+      { __typename?: 'user' }
+      & Pick<User, '_id' | 'name' | 'email'>
+    )> }
+  )>>> }
+);
+
+export type GetAllNotificationsOfUserQueryVariables = {};
+
+
+export type GetAllNotificationsOfUserQuery = (
+  { __typename?: 'Query' }
+  & { GetAllNotificationsOfUser?: Maybe<Array<Maybe<(
+    { __typename?: 'notification' }
+    & Pick<Notification, 'notification' | 'url' | 'date'>
+    & { userId?: Maybe<(
+      { __typename?: 'user' }
+      & Pick<User, '_id' | 'name' | 'userType'>
     )> }
   )>>> }
 );
@@ -1016,6 +1315,17 @@ export type UserStatusUpdateMutation = (
   )> }
 );
 
+export type GetUsersOfOwnerQueryVariables = {};
+
+
+export type GetUsersOfOwnerQuery = (
+  { __typename?: 'Query' }
+  & { GetUsersOfOwner?: Maybe<Array<Maybe<(
+    { __typename?: 'user' }
+    & Pick<User, '_id' | 'name' | 'email' | 'userType' | 'status'>
+  )>>> }
+);
+
 export type GetUserQueryVariables = {};
 
 
@@ -1078,6 +1388,98 @@ export const RegisterUserDocument = gql`
   })
   export class RegisterUserGQL extends Apollo.Mutation<RegisterUserMutation, RegisterUserMutationVariables> {
     document = RegisterUserDocument;
+    
+  }
+export const AddBookingDocument = gql`
+    mutation AddBooking($date: String, $type: String, $booking: String) {
+  AddBooking(date: $date, type: $type, booking: $booking) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AddBookingGQL extends Apollo.Mutation<AddBookingMutation, AddBookingMutationVariables> {
+    document = AddBookingDocument;
+    
+  }
+export const GetAllBookingsOfUserDocument = gql`
+    query GetAllBookingsOfUser {
+  GetAllBookingsOfUser {
+    _id
+    booking
+    userId {
+      _id
+      name
+    }
+    building {
+      _id
+      name
+    }
+    type
+    date
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllBookingsOfUserGQL extends Apollo.Query<GetAllBookingsOfUserQuery, GetAllBookingsOfUserQueryVariables> {
+    document = GetAllBookingsOfUserDocument;
+    
+  }
+export const BookingStatusAcceptDocument = gql`
+    mutation BookingStatusAccept($bookingId: ID) {
+  BookingStatusAccept(bookingId: $bookingId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+      status
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class BookingStatusAcceptGQL extends Apollo.Mutation<BookingStatusAcceptMutation, BookingStatusAcceptMutationVariables> {
+    document = BookingStatusAcceptDocument;
+    
+  }
+export const BookingStatusRejectDocument = gql`
+    mutation BookingStatusReject($bookingId: ID) {
+  BookingStatusReject(bookingId: $bookingId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+      status
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class BookingStatusRejectGQL extends Apollo.Mutation<BookingStatusRejectMutation, BookingStatusRejectMutationVariables> {
+    document = BookingStatusRejectDocument;
     
   }
 export const GetAllBuildingDocument = gql`
@@ -1402,8 +1804,8 @@ export const GetViewChatsDocument = gql`
     
   }
 export const AddChatOwnerDocument = gql`
-    mutation AddChatOwner($buildingId: ID, $message: String, $url: String) {
-  AddChatOwner(buildingId: $buildingId, message: $message, url: $url) {
+    mutation AddChatOwner($buildingId: ID, $message: String, $file: Upload) {
+  AddChatOwner(buildingId: $buildingId, message: $message, file: $file) {
     Errors {
       error
       message
@@ -1434,8 +1836,8 @@ export const AddChatOwnerDocument = gql`
     
   }
 export const AddChatAllDocument = gql`
-    mutation AddChatAll($buildingId: ID, $message: String, $url: String) {
-  AddChatAll(buildingId: $buildingId, message: $message, url: $url) {
+    mutation AddChatAll($buildingId: ID, $message: String, $file: Upload) {
+  AddChatAll(buildingId: $buildingId, message: $message, file: $file) {
     Errors {
       error
       message
@@ -1518,8 +1920,8 @@ export const ChatAllUpdateDocument = gql`
     
   }
 export const CreateComplainDocument = gql`
-    mutation CreateComplain($complain: String) {
-  CreateComplain(complain: $complain) {
+    mutation CreateComplain($complain: String, $file: Upload) {
+  CreateComplain(complain: $complain, file: $file) {
     Errors {
       error
       message
@@ -1538,7 +1940,9 @@ export const CreateComplainDocument = gql`
 export const GetAllComplaintsDocument = gql`
     query GetAllComplaints {
   GetAllComplaints {
+    _id
     complain
+    url
     userId {
       _id
       name
@@ -1561,6 +1965,164 @@ export const GetAllComplaintsDocument = gql`
   })
   export class GetAllComplaintsGQL extends Apollo.Query<GetAllComplaintsQuery, GetAllComplaintsQueryVariables> {
     document = GetAllComplaintsDocument;
+    
+  }
+export const GetAllComplaintsOfOwnerDocument = gql`
+    query GetAllComplaintsOfOwner {
+  GetAllComplaintsOfOwner {
+    _id
+    complain
+    url
+    userId {
+      _id
+      name
+    }
+    building {
+      _id
+      name
+    }
+    roomId {
+      _id
+      name
+    }
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllComplaintsOfOwnerGQL extends Apollo.Query<GetAllComplaintsOfOwnerQuery, GetAllComplaintsOfOwnerQueryVariables> {
+    document = GetAllComplaintsOfOwnerDocument;
+    
+  }
+export const AcceptComplainDocument = gql`
+    mutation AcceptComplain($complainId: ID) {
+  AcceptComplain(complainId: $complainId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+      status
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AcceptComplainGQL extends Apollo.Mutation<AcceptComplainMutation, AcceptComplainMutationVariables> {
+    document = AcceptComplainDocument;
+    
+  }
+export const RejectComplainDocument = gql`
+    mutation RejectComplain($complainId: ID) {
+  RejectComplain(complainId: $complainId) {
+    Errors {
+      error
+      message
+    }
+    Data {
+      _id
+      status
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RejectComplainGQL extends Apollo.Mutation<RejectComplainMutation, RejectComplainMutationVariables> {
+    document = RejectComplainDocument;
+    
+  }
+export const CreateContractorDocument = gql`
+    mutation CreateContractor($name: String, $email: String, $phoneNo: String, $type: String, $price: Int) {
+  CreateContractor(name: $name, email: $email, phoneNo: $phoneNo, type: $type, price: $price) {
+    _id
+    name
+    email
+    phoneNo
+    type
+    price
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateContractorGQL extends Apollo.Mutation<CreateContractorMutation, CreateContractorMutationVariables> {
+    document = CreateContractorDocument;
+    
+  }
+export const GetAllContractorsDocument = gql`
+    query GetAllContractors {
+  GetAllContractors {
+    _id
+    name
+    email
+    phoneNo
+    type
+    price
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllContractorsGQL extends Apollo.Query<GetAllContractorsQuery, GetAllContractorsQueryVariables> {
+    document = GetAllContractorsDocument;
+    
+  }
+export const CreateNotificationDocument = gql`
+    mutation CreateNotification($notification: String, $userIds: [ID], $file: Upload) {
+  CreateNotification(notification: $notification, userIds: $userIds, file: $file) {
+    notification
+    url
+    userId {
+      _id
+      name
+      email
+    }
+    date
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateNotificationGQL extends Apollo.Mutation<CreateNotificationMutation, CreateNotificationMutationVariables> {
+    document = CreateNotificationDocument;
+    
+  }
+export const GetAllNotificationsOfUserDocument = gql`
+    query GetAllNotificationsOfUser {
+  GetAllNotificationsOfUser {
+    notification
+    url
+    userId {
+      _id
+      name
+      userType
+    }
+    date
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllNotificationsOfUserGQL extends Apollo.Query<GetAllNotificationsOfUserQuery, GetAllNotificationsOfUserQueryVariables> {
+    document = GetAllNotificationsOfUserDocument;
     
   }
 export const ApproveRequestDocument = gql`
@@ -1852,6 +2414,25 @@ export const UserStatusUpdateDocument = gql`
   })
   export class UserStatusUpdateGQL extends Apollo.Mutation<UserStatusUpdateMutation, UserStatusUpdateMutationVariables> {
     document = UserStatusUpdateDocument;
+    
+  }
+export const GetUsersOfOwnerDocument = gql`
+    query GetUsersOfOwner {
+  GetUsersOfOwner {
+    _id
+    name
+    email
+    userType
+    status
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetUsersOfOwnerGQL extends Apollo.Query<GetUsersOfOwnerQuery, GetUsersOfOwnerQueryVariables> {
+    document = GetUsersOfOwnerDocument;
     
   }
 export const GetUserDocument = gql`

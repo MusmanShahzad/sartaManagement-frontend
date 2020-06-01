@@ -1,4 +1,4 @@
-import { GetAllRoomsGQL, CreateRequestGQL } from './../../shared/graphql/service';
+import { GetAllRoomsGQL, CreateRequestGQL, Room } from './../../shared/graphql/service';
 import { Component, OnInit } from '@angular/core';
 import { Rooms } from 'src/app/shared/graphql/service';
 import { ToastrService } from 'ngx-toastr';

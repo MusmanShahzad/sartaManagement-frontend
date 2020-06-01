@@ -6,7 +6,10 @@
         <h1 for="complain">Complain</h1>
         <textarea class="form-control" id="complain" rows="3" formControlName="complain" placeholder="Complain Text"></textarea>
       </div>
-    
+      <div class="form-group">
+        <label for="relationshipStatus">Image</label>
+        <input  (change)="fileChange($event)"  type="file"   class="form-control mb-0"  id="inputGroupFile01"  aria-describedby="inputGroupFileAddon01">
+      </div>
     <button type="submit" class="btn btn-primary m-2" (click)="addComplain()">Complain</button>
   </form>
 </div>

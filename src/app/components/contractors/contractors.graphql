@@ -1,0 +1,20 @@
+mutation CreateContractor($name:String,$email:String,$phoneNo:String,$type:String,$price:Int){
+ CreateContractor(name:$name,email:$email,phoneNo:$phoneNo,type:$type,price:$price) {
+  _id
+  name
+  email
+  phoneNo
+  type
+  price
+}
+}
+query GetAllContractors{
+  GetAllContractors{
+    _id
+    name
+    email
+    phoneNo
+    type
+    price
+  }
+}

@@ -23,8 +23,8 @@
           <p class="card-text">Building Name:<a [routerLink]="['../building',complain.building._id]">{{complain.building.name}}</a></p>
         </div>
         <div class="card-footer" *ngIf="type == 2">
-          <button class="btn btn-success" *ngIf="complain.status==0||complain.status==-1" (click)="acceptComplain(complain._id)">Accept</button>
-          <button class="btn btn-danger" *ngIf="complain.status==0||complain.status==1" (click)="rejectComplain(complain._id)">Reject</button>
+          <!-- (click)="sendRequest(complain._id)" -->
+          <button class="btn btn-danger" *ngIf="complain.status==1"[routerLink]="['../viewcontractor',complain._id]" >Send Request</button>
         </div>
       </div>
     </div>

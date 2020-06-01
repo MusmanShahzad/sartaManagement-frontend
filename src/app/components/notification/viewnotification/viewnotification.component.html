@@ -16,16 +16,13 @@
           <a class="btn btn-success" *ngIf="!checkVideoExtension(complain.url)&&!checkImageExtension(complain.url)" href="{{complain.url}}">Download file</a>
         </div>
         <div class="card-header">
-          Complain:{{complain.complain}}
+          Notification:{{complain.notification}}
         </div>
         <div class="card-body">
-          <p class="card-text">Room Name:<a [routerLink]="['../room/view',complain.roomId._id]" >{{complain.roomId.name}}</a></p>
-          <p class="card-text">Building Name:<a [routerLink]="['../building',complain.building._id]">{{complain.building.name}}</a></p>
+          <p class="card-text">User Name:<a [routerLink]="['../userView',complain.userId._id]" >{{complain.userId.name}}</a></p>
+          <p class="card-text">Type Name:{{complain.userId.userType|type}}</p>
         </div>
-        <div class="card-footer" *ngIf="type == 2">
-          <button class="btn btn-success" *ngIf="complain.status==0||complain.status==-1" (click)="acceptComplain(complain._id)">Accept</button>
-          <button class="btn btn-danger" *ngIf="complain.status==0||complain.status==1" (click)="rejectComplain(complain._id)">Reject</button>
-        </div>
+       
       </div>
     </div>
   </div>

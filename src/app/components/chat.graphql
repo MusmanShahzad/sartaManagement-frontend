@@ -5,8 +5,8 @@ query GetViewChats{
     status
   }
 }
-mutation AddChatOwner($buildingId:ID,$message:String,$url:String){
-  AddChatOwner(buildingId:$buildingId,message:$message,url:$url){
+mutation AddChatOwner($buildingId:ID,$message:String,$file:Upload){
+  AddChatOwner(buildingId:$buildingId,message:$message,file:$file){
     Errors{
       error
       message
@@ -27,8 +27,8 @@ mutation AddChatOwner($buildingId:ID,$message:String,$url:String){
     }
   }
 }
-mutation AddChatAll($buildingId:ID,$message:String,$url:String){
-  AddChatAll(buildingId:$buildingId,message:$message,url:$url){
+mutation AddChatAll($buildingId:ID,$message:String,$file:Upload){
+  AddChatAll(buildingId:$buildingId,message:$message,file:$file){
     Errors{
       error
       message

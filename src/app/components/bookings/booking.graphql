@@ -1,0 +1,53 @@
+mutation AddBooking($date:String,$type:String,$booking:String){
+  AddBooking(date:$date,type:$type,booking:$booking){
+    Errors{
+      error
+      message
+    }
+    Data{
+        _id
+    }
+  }
+}
+query GetAllBookingsOfUser{
+  GetAllBookingsOfUser{
+    _id
+    booking
+    userId{
+      _id
+      name
+    }
+    building{
+      _id
+      name
+    }
+    type
+    date
+    status
+  }
+}
+
+mutation BookingStatusAccept($bookingId:ID){
+  BookingStatusAccept(bookingId:$bookingId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      status
+    }
+  }
+}
+mutation BookingStatusReject($bookingId:ID){
+  BookingStatusReject(bookingId:$bookingId){
+    Errors{
+      error
+      message
+    }
+    Data{
+      _id
+      status
+    }
+  }
+}
