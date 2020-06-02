@@ -22,7 +22,7 @@
           <div [formGroupName]="i">
           <hr style="border-top: 1px solid #8c8b8b;"/>
           <div class="col m-5">
-            <input type="text" class="form-control" formControlName="name" placeholder="Unit Name">
+            <input type="text" class="form-control" formControlName="name" placeholder="Unit No">
             <div *ngIf="room.get('name').touched && room.get('name').errors?.required"
 								class="text text-danger mt-1">
 								Name is required
