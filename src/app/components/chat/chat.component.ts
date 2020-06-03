@@ -64,13 +64,22 @@ sendDisable=false;
   sendMessage(){
     if(this.type=='owner'){
       this.sendDisable=true;
-      this.AddChatOwner.mutate({...this.messageForm.value,buildingId:this.buildingId,file:this.uploadedFiles[0]}).subscribe(ele=>{
-        this.sendDisable=false;
-        this.messages=ele.data.AddChatOwner.Data.messageOwner;
-      })
+      if(this.uploadedFiles){
+        this.AddChatOwner.mutate({...this.messageForm.value,buildingId:this.buildingId,file:this.uploadedFiles[0]}).subscribe(ele=>{
+          this.sendDisable=false;
+          this.messages=ele.data.AddChatOwner.Data.messageOwner;
+        })
+      }
+      else{
+        this.AddChatOwner.mutate({...this.messageForm.value,buildingId:this.buildingId}).subscribe(ele=>{
+          this.sendDisable=false;
+          this.messages=ele.data.AddChatOwner.Data.messageOwner;
+        })
+      }
     }
     else if(this.type=='all'){
       this.sendDisable=true;
+     if(this.uploadedFiles){
       console.log({...this.messageForm.value,buildingId:this.buildingId,file:this.uploadedFiles[0]});
       this.AddChatAll.mutate({...this.messageForm.value,buildingId:this.buildingId,file:this.uploadedFiles[0]},{
         context: {
@@ -82,6 +91,19 @@ sendDisable=false;
         this.messages=ele.data.AddChatAll.Data.message;
         }
       })
+     }
+     else{
+      this.AddChatAll.mutate({...this.messageForm.value,buildingId:this.buildingId},{
+        context: {
+          useMultipart: true
+       }
+      }).subscribe(ele=>{
+        this.sendDisable=false;
+        if(ele.data.AddChatAll){
+        this.messages=ele.data.AddChatAll.Data.message;
+        }
+      })
+     }
     }
   }
   checkImageExtension(url){
