@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  graphQL: 'http://localhost:8888/graphql',
-  graphQLSocket: 'ws://localhost:8888/graphql'
+  graphQL: 'https://sartamanagement-backend.herokuapp.com/graphql',
+  graphQLSocket: 'ws://sartamanagement-backend.herokuapp.com/graphql'
 };
 
 /*
