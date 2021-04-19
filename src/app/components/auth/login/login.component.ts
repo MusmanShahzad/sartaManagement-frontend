@@ -28,30 +28,30 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService) {
     this.loginForm = fb.group({
       email: ['owner@gmail.com', [Validators.required, Validators.email]],
-      password: ['12345678', [Validators.required,Validators.minLength(8)]]
+      password: ['12345678', [Validators.required, Validators.minLength(8)]]
     });
   }
 
   ngOnInit() {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       this.router.navigate(['/dashboard']);
     }
   }
 
   // Simple Login
   login() {
-   
-    this.loginService.LoginDataObservable.subscribe(message =>{
-
-      if(message==null){
-      this.isLoading=false;
+    this.isLoading = true;
+    this.loginService.LoginDataObservable.subscribe(message => {
+      this.isLoading = false;
+      if (message == null) {
+        this.isLoading = false;
       }
     }
     );
     this.loginService.UpdateLogin(this.loginForm.value.email, this.loginForm.value.password)
-    this.isLoading = true;
+    // this.isLoading = true;
   }
-  regiterNevigate(){
+  regiterNevigate() {
     this.router.navigate(['/auth/register']);
   }
 
