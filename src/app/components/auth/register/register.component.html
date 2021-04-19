@@ -2,16 +2,16 @@
 	<div class="auth-bg">
 		<div class="authentication-box">
 			<div class="text-center">
-                <img src="./../../../../assets/images/logo/logo.jpg" alt="Logo" class="img-fluid">
-            </div>
+				<img src="./../../../../assets/images/logo/logo.jpg" alt="Logo" class="img-fluid">
+			</div>
 			<div class="card mt-4">
 				<div class="card-body">
 					<div class="text-center">
 						<h4>Register</h4>
 						<h6>Enter Your Information </h6>
 					</div>
-					<form class="theme-form" [formGroup]="registerForm" >
-            <div class="form-group">
+					<form class="theme-form" [formGroup]="registerForm">
+						<div class="form-group">
 							<label class="col-form-label pt-0">Name</label>
 							<input class="form-control" formControlName="name" type="text" required="">
 							<div *ngIf="registerForm.controls.name.touched && registerForm.controls.name.errors?.required"
@@ -42,14 +42,14 @@
 								class="text text-danger mt-1">
 								Password length should be at least 8
 							</div>
-            </div>
-            <div class="form-group">
+						</div>
+						<div class="form-group">
 							<label class="col-form-label">Type</label>
 							<select class="form-control" formControlName="userType">
-                <option value="">--select Type--</option>
-                <option [value]="type.value" *ngFor="let type of userTypes">{{type.text}}</option>
+								<option value="">--select Type--</option>
+								<option [value]="type.value" *ngFor="let type of userTypes">{{type.text}}</option>
 
-              </select>
+							</select>
 							<div *ngIf="registerForm.controls.userType.touched && registerForm.controls.userType.errors?.required"
 								class="text text-danger mt-1">
 								User Type is required
@@ -60,10 +60,9 @@
 							<label for="checkbox1">Remember me</label>
 						</div>
 						<div class="form-group form-row mt-3 mb-0">
-							<button class="btn btn-primary btn-block btn-lg"
-								[class.loader--text]="isLoading"
+							<button class="btn btn-primary btn-block btn-lg" [class.loader--text]="isLoading"
 								[disabled]="!registerForm.valid || isLoading" (click)="register(registerForm.value)"
-								type="submit"><span>{{ isLoading ? '' : 'Login' }}</span>
+								type="submit"><span>{{ isLoading ? 'Loading...' : 'Register' }}</span>
 							</button>
 						</div>
 					</form>

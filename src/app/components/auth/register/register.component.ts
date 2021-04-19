@@ -32,7 +32,9 @@ export class RegisterComponent implements OnInit {
   register(val) {
     //console.log(typeof val.userType);
     val.userType = parseInt(val.userType);
+    this.isLoading = true;
     this.RegisterUser.mutate(val).subscribe(ele => {
+      this.isLoading = false;
       if (ele.data.RegisterUser.Errors && ele.data.RegisterUser.Errors.length > 0) {
         ele.data.RegisterUser.Errors.forEach(error => {
           this.toastr.error(error.message, error.error);

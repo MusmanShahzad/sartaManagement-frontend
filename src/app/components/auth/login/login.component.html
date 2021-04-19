@@ -2,8 +2,8 @@
 	<div class="auth-bg">
 		<div class="authentication-box">
 			<div class="text-center">
-                <img src="./../../../../assets/images/logo/logo.jpg" alt="Logo" class="img-fluid">
-            </div>
+				<img src="./../../../../assets/images/logo/logo.jpg" alt="Logo" class="img-fluid">
+			</div>
 			<div class="card mt-4">
 				<div class="card-body">
 					<div class="text-center">
@@ -37,12 +37,11 @@
 						</div>
 						<a (click)="regiterNevigate()" style="color: blue">Register</a>
 						<div class="form-group form-row mt-3 mb-0">
-							<button class="btn btn-primary btn-block btn-lg"
-								[class.loader--text]="isLoading"
+							<button class="btn btn-primary btn-block btn-lg" [class.loader--text]="isLoading"
 								[disabled]="!loginForm.valid || isLoading" (click)="login(loginForm.value)"
 								type="submit"><span>{{ isLoading ? '' : 'Login' }}</span>
 							</button>
-							
+
 						</div>
 					</form>
 				</div>

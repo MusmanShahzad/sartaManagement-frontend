@@ -1,7 +1,8 @@
 import { User } from './../../graphql/service';
 import { Injectable } from '@angular/core';
 import { LoginUserGQL } from '../../graphql/service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -14,35 +15,29 @@ export class LoginService {
 
   constructor(private LoginUser: LoginUserGQL, private toastr: ToastrService, private router: Router) { }
   UpdateLogin(email, password) {
-    this.LoginUser.mutate({ email, password }).subscribe(ele => {
-      if (ele.data.LoginUser.Errors && ele.data.LoginUser.Errors.length > 0) {
-        ele.data.LoginUser.Errors.forEach(ele => {
-          this.toastr.error(ele.error);
-        });
-        this.LoginData.next(null);
-        return;
-      }
-      if (ele.errors && ele.errors.length > 0) {
-        ele.errors.forEach(error => {
-          this.toastr.error(error.message, 'server error');
-        })
-        this.LoginData.next(null);
-        return;
-      }
-      if (!ele.data.LoginUser.Data.user.status) {
-        this.toastr.error('You have been blocked', 'Blocked');
-        this.LoginData.next(null);
-        return;
-      }
-      // localStorage.setItem('token', ele.data.LoginUser.Data.token);
-      // localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
-      this.LoginData.next(ele.data.LoginUser.Data.token);
-      this.toastr.success('Login Success', 'Success');
-      setTimeout(() => {
-        // this.router.navigate(['/dashboard']);
-      }, 1000);
-      return;
-    });
+    return this.LoginUser.mutate({ email, password }).pipe(
+      map(ele => {
+        if (ele.data.LoginUser.Errors && ele.data.LoginUser.Errors.length > 0) {
+          this.LoginData.next(null);
+          return ele;
+        }
+        if (ele.errors && ele.errors.length > 0) {
+          this.LoginData.next(null);
+          return ele;
+        }
+        if (!ele.data.LoginUser.Data.user.status) {
+          this.LoginData.next(null);
+          return ele;
+        }
+        // localStorage.setItem('token', ele.data.LoginUser.Data.token);
+        // localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
+        this.LoginData.next(ele.data.LoginUser.Data.token);
+        setTimeout(() => {
+          // this.router.navigate(['/dashboard']);
+        }, 1000);
+        return ele;
+      })
+    );
   }
   logout() {
     localStorage.clear();
@@ -50,3 +45,7 @@ export class LoginService {
   }
 
 }
+function tap(arg0: (ele: any) => void): import("rxjs").OperatorFunction<import("apollo-link").FetchResult<import("./../../graphql/service").LoginUserMutation, Record<string, any>, Record<string, any>>, unknown> {
+  throw new Error('Function not implemented.');
+}
+

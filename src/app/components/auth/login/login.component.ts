@@ -42,13 +42,41 @@ export class LoginComponent implements OnInit {
   login() {
     this.isLoading = true;
     this.loginService.LoginDataObservable.subscribe(message => {
-      this.isLoading = false;
+
       if (message == null) {
         this.isLoading = false;
       }
     }
     );
-    this.loginService.UpdateLogin(this.loginForm.value.email, this.loginForm.value.password)
+    this.loginService.UpdateLogin(this.loginForm.value.email, this.loginForm.value.password).subscribe(ele => {
+      this.isLoading = false;
+      if (ele.data.LoginUser.Errors && ele.data.LoginUser.Errors.length > 0) {
+        ele.data.LoginUser.Errors.forEach(ele => {
+          this.toastr.error(ele.error);
+        });
+        // this.LoginData.next(null);
+        return;
+      }
+      if (ele.errors && ele.errors.length > 0) {
+        ele.errors.forEach(error => {
+          this.toastr.error(error.message, 'server error');
+        })
+        // this.LoginData.next(null);
+        return;
+      }
+      if (!ele.data.LoginUser.Data.user.status) {
+        this.toastr.error('You have been blocked', 'Blocked');
+        // this.LoginData.next(null);
+        return;
+      }
+      // localStorage.setItem('token', ele.data.LoginUser.Data.token);
+      // localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
+      this.toastr.success('Login Success', 'Success');
+      setTimeout(() => {
+        // this.router.navigate(['/dashboard']);
+      }, 1000);
+      return;
+    })
     // this.isLoading = true;
   }
   regiterNevigate() {
