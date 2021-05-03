@@ -8,15 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./building.component.css']
 })
 export class BuildingComponent implements OnInit {
-buildings: Buildings[];
-isLoading:boolean = false;
-  constructor(private GetAllBuilding:GetAllBuildingGQL,private router:Router ) { }
+  buildings: any[];
+  isLoading: boolean = false;
+  constructor(private GetAllBuilding: GetAllBuildingGQL, private router: Router) { }
 
   ngOnInit() {
-    this.isLoading=true;
-    this.GetAllBuilding.watch({},{fetchPolicy:'network-only'}).valueChanges.subscribe((ele) => {
-      this.buildings=ele.data.GetAllBuilding;
-      this.isLoading=false;
+    this.isLoading = true;
+    this.GetAllBuilding.watch({}, { fetchPolicy: 'network-only' }).valueChanges.subscribe((ele) => {
+      this.buildings = ele.data.GetAllBuilding;
+      this.isLoading = false;
     })
   }
 

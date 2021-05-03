@@ -29,12 +29,15 @@ export class LoginService {
           this.LoginData.next(null);
           return ele;
         }
-        // localStorage.setItem('token', ele.data.LoginUser.Data.token);
-        // localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
-        this.LoginData.next(ele.data.LoginUser.Data.token);
-        setTimeout(() => {
-          // this.router.navigate(['/dashboard']);
-        }, 1000);
+        if (ele.data.LoginUser.Data.user.userType === 2) {
+          localStorage.setItem('token', ele.data.LoginUser.Data.token);
+          localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
+          this.LoginData.next(ele.data.LoginUser.Data.token);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1000);
+        }
+
         return ele;
       })
     );

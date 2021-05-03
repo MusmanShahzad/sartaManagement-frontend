@@ -41,13 +41,13 @@ export class LoginComponent implements OnInit {
   // Simple Login
   login() {
     this.isLoading = true;
-    this.loginService.LoginDataObservable.subscribe(message => {
+    // this.loginService.LoginDataObservable.subscribe(message => {
 
-      if (message == null) {
-        this.isLoading = false;
-      }
-    }
-    );
+    //   if (message == null) {
+    //     this.isLoading = false;
+    //   }
+    // }
+    // );
     this.loginService.UpdateLogin(this.loginForm.value.email, this.loginForm.value.password).subscribe(ele => {
       this.isLoading = false;
       if (ele.data.LoginUser.Errors && ele.data.LoginUser.Errors.length > 0) {
@@ -72,9 +72,12 @@ export class LoginComponent implements OnInit {
       // localStorage.setItem('token', ele.data.LoginUser.Data.token);
       // localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
       this.toastr.success('Login Success', 'Success');
-      setTimeout(() => {
-        // this.router.navigate(['/dashboard']);
-      }, 1000);
+      if (ele.data.LoginUser.Data.user.userType !== 2) {
+        this.toastr.warning('This user has not been implemented yet', 'In progress');
+      }
+      // setTimeout(() => {
+      //   // this.router.navigate(['/dashboard']);
+      // }, 1000);
       return;
     })
     // this.isLoading = true;

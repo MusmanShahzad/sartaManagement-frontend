@@ -42,10 +42,10 @@ export class RegisterComponent implements OnInit {
         return;
       }
       this.toastr.success('Registered Successfully', 'Success');
-      // localStorage.setItem('token', ele.data.RegisterUser.Data.token);
-      // localStorage.setItem('type', ele.data.RegisterUser.Data.user.userType.toString());
+      localStorage.setItem('token', ele.data.RegisterUser.Data.token);
+      localStorage.setItem('type', ele.data.RegisterUser.Data.user.userType.toString());
       setTimeout(() => {
-        // this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']);
       }, 1000);
     })
   }
