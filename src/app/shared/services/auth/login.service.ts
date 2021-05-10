@@ -29,7 +29,7 @@ export class LoginService {
           this.LoginData.next(null);
           return ele;
         }
-        if (ele.data.LoginUser.Data.user.userType === 2) {
+        if (ele.data.LoginUser.Data.user.userType === 2 || ele.data.LoginUser.Data.user.userType === 1) {
           localStorage.setItem('token', ele.data.LoginUser.Data.token);
           localStorage.setItem('type', ele.data.LoginUser.Data.user.userType.toString());
           this.LoginData.next(ele.data.LoginUser.Data.token);
