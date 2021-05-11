@@ -1,7 +1,6 @@
-
 <div class="container-fluid">
   <div class="row-fluid" *ngIf="complains&&complains.length==0">
-    <div class="col-12 col-md-12 col-sm-12" >
+    <div class="col-12 col-md-12 col-sm-12">
       <div class="alert alert-warning" role="alert">
         No Record To Show
       </div>
@@ -11,20 +10,25 @@
     <div class="col-12 col-md-12 col-sm-12">
       <div class="card">
         <div *ngIf="complain.url">
-          <img *ngIf="checkImageExtension(complain.url)" src="{{complain.url}}"/>
+          <img *ngIf="checkImageExtension(complain.url)" style="width: 100%; height: 250px;" src="{{complain.url}}" />
           <mat-video *ngIf="checkVideoExtension(complain.url)" src="{{complain.url}}"></mat-video>
-          <a class="btn btn-success" *ngIf="!checkVideoExtension(complain.url)&&!checkImageExtension(complain.url)" href="{{complain.url}}">Download file</a>
+          <a class="btn btn-success" *ngIf="!checkVideoExtension(complain.url)&&!checkImageExtension(complain.url)"
+            href="{{complain.url}}">Download file</a>
         </div>
         <div class="card-header">
           Complain:{{complain.complain}}
         </div>
         <div class="card-body">
-          <p class="card-text">Room Name:<a [routerLink]="['../room/view',complain.roomId._id]" >{{complain.roomId.name}}</a></p>
-          <p class="card-text">Building Name:<a [routerLink]="['../building',complain.building._id]">{{complain.building.name}}</a></p>
+          <p class="card-text">Room Name:<a
+              [routerLink]="['../room/view',complain.roomId._id]">{{complain.roomId.name}}</a></p>
+          <p class="card-text">Building Name:<a
+              [routerLink]="['../building',complain.building._id]">{{complain.building.name}}</a></p>
         </div>
         <div class="card-footer" *ngIf="type == 2">
-          <button class="btn btn-success" *ngIf="complain.status==0||complain.status==-1" (click)="acceptComplain(complain._id)">Accept</button>
-          <button class="btn btn-danger" *ngIf="complain.status==0||complain.status==1" (click)="rejectComplain(complain._id)">Reject</button>
+          <button class="btn btn-success" *ngIf="complain.status==0||complain.status==-1"
+            (click)="acceptComplain(complain._id)">Accept</button>
+          <button class="btn btn-danger" *ngIf="complain.status==0||complain.status==1"
+            (click)="rejectComplain(complain._id)">Reject</button>
         </div>
       </div>
     </div>
