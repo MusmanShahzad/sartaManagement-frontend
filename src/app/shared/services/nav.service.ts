@@ -57,7 +57,7 @@ export class NavService {
 		type: 'sub',
 		badgeType: 'primary',
 		children: [{
-			title: 'Buildings manage',
+			title: 'My Buildings manage',
 			type: 'sub',
 			children: [{
 				path: '/building/manage/add',
@@ -99,11 +99,11 @@ export class NavService {
 			]
 		},
 		{
-			title: 'Complain',
+			title: 'Complaint',
 			type: 'sub',
 			children: [{
 				path: '/complain/add',
-				title: 'Add complain',
+				title: 'Add Complaint',
 				type: 'link'
 			}]
 		},
@@ -135,7 +135,6 @@ export class NavService {
 	]
 	items = new BehaviorSubject<Menu[]>(null);
 	getMenu() {
-		// tslint:disable-next-line: radix
 		let type = parseInt(localStorage.getItem('type'));
 		if (type != null) {
 			console.log(type);
@@ -164,7 +163,7 @@ export class NavService {
 				},
 				{
 					path: '/complain',
-					title: 'complain',
+					title: 'complaint',
 					type: 'link'
 				},
 				{
@@ -219,7 +218,7 @@ export class NavService {
 					type: 'sub',
 					badgeType: 'primary',
 					children: [{
-						title: 'Unit manage',
+						title: 'My Unit manage',
 						type: 'sub',
 						children: [{
 							path: '/room/manage/my',
@@ -235,16 +234,16 @@ export class NavService {
 					]
 				},
 				{
-					title: 'Complain',
+					title: 'Complaint',
 					type: 'sub',
 					children: [{
 						path: '/complain/add',
-						title: 'Add complain',
+						title: 'Add complaint',
 						type: 'link'
 					},
 					{
 						path: '/complain',
-						title: 'complain',
+						title: 'complaint',
 						type: 'link'
 					}
 					]
@@ -287,7 +286,7 @@ export class NavService {
 					active: true
 				},
 				{
-					title: 'Apartments',
+					title: 'My Apartments',
 					icon: 'github',
 					type: 'sub',
 					badgeType: 'primary',
@@ -365,16 +364,16 @@ export class NavService {
 					]
 				},
 				{
-					title: 'Complains',
+					title: 'Complaint',
 					type: 'sub',
 					children: [{
 						path: '/complain',
-						title: 'Unit Complains',
+						title: 'Unit Complaint',
 						type: 'link'
 					},
 					{
 						path: '/ownercomplain',
-						title: 'Building Complains',
+						title: 'Building Complaint',
 						type: 'link'
 					}
 					]
@@ -439,7 +438,7 @@ export class NavService {
 				},
 				{
 					path: '/complain',
-					title: 'complain',
+					title: 'complaint',
 					type: 'link'
 				},
 				{
