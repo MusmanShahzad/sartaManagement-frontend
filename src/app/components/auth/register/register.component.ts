@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   //     owner:2,
   //     agent:3
   // }
-  userTypes = [{ value: 0, text: 'admin' }, { value: 1, text: 'tenant' }, { value: 2, text: 'owner' }, { value: 3, text: 'agent' }];
+  userTypes = [{ value: 0, text: 'owner corporation' }, { value: 1, text: 'tenant' }, { value: 2, text: 'Unit Owner' }, { value: 3, text: 'agent' }];
   registerForm: FormGroup;
   isLoading: boolean = false;
   constructor(private fb: FormBuilder, private RegisterUser: RegisterUserGQL, private toastr: ToastrService, private router: Router) { }
