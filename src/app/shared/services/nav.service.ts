@@ -137,7 +137,6 @@ export class NavService {
 	getMenu() {
 		let type = parseInt(localStorage.getItem('type'));
 		if (type != null) {
-			console.log(type);
 			if (type == 0) {
 				this.items.next([{
 					path: '/dashboard',
@@ -147,8 +146,9 @@ export class NavService {
 					active: true
 				},
 				{
+					title: 'Apartments',
+					icon: 'github',
 					path: '/building',
-					title: 'view Apartments',
 					type: 'link'
 				},
 				{
