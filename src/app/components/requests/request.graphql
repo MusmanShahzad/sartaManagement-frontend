@@ -1,45 +1,53 @@
-mutation ApproveRequest($requestId:ID){
-  ApproveRequest(requestId:$requestId){
-    Errors{
+mutation ApproveRequest($requestId: ID) {
+  ApproveRequest(requestId: $requestId) {
+    Errors {
       error
       message
     }
   }
 }
-query GetRequestForOwner{
-  GetRequestForOwner{
+mutation RejectRequest($requestId: ID) {
+  RejectRequest(requestId: $requestId) {
+    Errors {
+      error
+      message
+    }
+  }
+}
+query GetRequestForOwner {
+  GetRequestForOwner {
     _id
     notification
     notificationType
-    userId{
+    userId {
       _id
       name
     }
-    building{
+    building {
       _id
       name
     }
-    roomId{
+    roomId {
       _id
       name
     }
     status
   }
 }
-query GetRequestOfUser{
-  GetRequestOfUser{
+query GetRequestOfUser {
+  GetRequestOfUser {
     _id
     notificationType
     notification
-    userId{
+    userId {
       _id
       name
     }
-    building{
+    building {
       _id
       name
     }
-    roomId{
+    roomId {
       _id
       name
     }

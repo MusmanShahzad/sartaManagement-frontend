@@ -15,207 +15,20 @@ export type Scalars = {
 
 
 
-export type User = {
-   __typename?: 'user';
-  _id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  userType?: Maybe<Scalars['Int']>;
-  createdDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Boolean']>;
-};
 
-export type Message = {
-   __typename?: 'message';
-  userId?: Maybe<User>;
-  messageType?: Maybe<Scalars['Int']>;
-  message?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  date?: Maybe<Scalars['String']>;
-};
-
-export type Request = {
-   __typename?: 'request';
-  _id?: Maybe<Scalars['ID']>;
-  notification?: Maybe<Scalars['String']>;
-  notificationType?: Maybe<Scalars['Int']>;
-  userId?: Maybe<User>;
-  building?: Maybe<Building>;
-  roomId?: Maybe<Room>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type Buildings = {
-   __typename?: 'buildings';
-  _id?: Maybe<Scalars['ID']>;
-  buildingId?: Maybe<Building>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type Agent = {
-   __typename?: 'agent';
-  _id?: Maybe<Scalars['ID']>;
-  userId?: Maybe<User>;
-  buildings?: Maybe<Array<Maybe<Buildings>>>;
-  createdDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type TenantsHistory = {
-   __typename?: 'tenantsHistory';
-  _Id?: Maybe<Scalars['ID']>;
-  tenantsId?: Maybe<Tenant>;
-  joinedDate?: Maybe<Scalars['String']>;
-  removeDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type Room = {
-   __typename?: 'room';
-  _id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  building?: Maybe<Building>;
-  ownersId?: Maybe<Owner>;
-  tenantId?: Maybe<Tenant>;
-  tenantsHistory?: Maybe<Array<Maybe<TenantsHistory>>>;
-  createdDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type Rooms = {
-   __typename?: 'rooms';
-  roomId?: Maybe<Room>;
-};
-
-export type Tenant = {
-   __typename?: 'tenant';
-  _id?: Maybe<Scalars['ID']>;
-  userId?: Maybe<User>;
-  roomId?: Maybe<Room>;
-  createdDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type Owner = {
-   __typename?: 'owner';
-  _id?: Maybe<Scalars['ID']>;
-  userId?: Maybe<User>;
-  buildings?: Maybe<Array<Maybe<Buildings>>>;
-  rooms?: Maybe<Array<Maybe<Rooms>>>;
-  createdDate?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Boolean']>;
-};
-
-export type Building = {
-   __typename?: 'building';
-  _id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  agentId?: Maybe<Agent>;
-  ownersId?: Maybe<Owner>;
-  status?: Maybe<Scalars['Boolean']>;
-  rooms?: Maybe<Array<Maybe<Rooms>>>;
-  message?: Maybe<Array<Maybe<Message>>>;
-  messageOwner?: Maybe<Array<Maybe<Message>>>;
-};
-
-export type Booking = {
-   __typename?: 'booking';
-  _id?: Maybe<Scalars['ID']>;
-  booking?: Maybe<Scalars['String']>;
-  userId?: Maybe<User>;
-  type?: Maybe<Scalars['String']>;
-  building?: Maybe<Building>;
-  date?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Int']>;
-};
+export enum CacheControlScope {
+  Public = 'PUBLIC',
+  Private = 'PRIVATE'
+}
 
 export type Error = {
-   __typename?: 'Error';
+  __typename?: 'Error';
   error?: Maybe<Scalars['String']>;
   message?: Maybe<Scalars['String']>;
 };
 
-export type RegisterData = {
-   __typename?: 'registerData';
-  user?: Maybe<User>;
-  token?: Maybe<Scalars['String']>;
-};
-
-export type RegisterOutput = {
-   __typename?: 'registerOutput';
-  Errors?: Maybe<Array<Maybe<Error>>>;
-  Data?: Maybe<RegisterData>;
-};
-
-export type AddRoomOutput = {
-   __typename?: 'addRoomOutput';
-  Errors?: Maybe<Array<Maybe<Error>>>;
-  Data?: Maybe<Room>;
-};
-
-export type AddBuildingOutput = {
-   __typename?: 'addBuildingOutput';
-  Errors?: Maybe<Array<Maybe<Error>>>;
-  Data?: Maybe<Building>;
-};
-
-export type RequestOutput = {
-   __typename?: 'requestOutput';
-  Errors?: Maybe<Array<Maybe<Error>>>;
-  Data?: Maybe<Request>;
-};
-
-export type RoomsInput = {
-  name?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-};
-
-export type Complain = {
-   __typename?: 'complain';
-  _id?: Maybe<Scalars['ID']>;
-  complain?: Maybe<Scalars['String']>;
-  userId?: Maybe<User>;
-  building?: Maybe<Building>;
-  url?: Maybe<Scalars['String']>;
-  roomId?: Maybe<Room>;
-  status?: Maybe<Scalars['Int']>;
-};
-
-export type ComplainOutput = {
-   __typename?: 'complainOutput';
-  Errors?: Maybe<Array<Maybe<Error>>>;
-  Data?: Maybe<Complain>;
-};
-
-export type BookingOutput = {
-   __typename?: 'bookingOutput';
-  Errors?: Maybe<Array<Maybe<Error>>>;
-  Data?: Maybe<Booking>;
-};
-
-export type Contractors = {
-   __typename?: 'contractors';
-  _id?: Maybe<Scalars['ID']>;
-  userId?: Maybe<User>;
-  name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  phoneNo?: Maybe<Scalars['String']>;
-  type?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Int']>;
-};
-
-export type Notification = {
-   __typename?: 'notification';
-  notification?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  userId?: Maybe<User>;
-  date?: Maybe<Scalars['String']>;
-};
-
 export type Mutation = {
-   __typename?: 'Mutation';
+  __typename?: 'Mutation';
   singleUpload?: Maybe<Scalars['String']>;
   RegisterUser?: Maybe<RegisterOutput>;
   LoginUser?: Maybe<RegisterOutput>;
@@ -226,6 +39,7 @@ export type Mutation = {
   RemoveAgent?: Maybe<AddBuildingOutput>;
   CreateRequest?: Maybe<RequestOutput>;
   ApproveRequest?: Maybe<RequestOutput>;
+  RejectRequest?: Maybe<RequestOutput>;
   AddChatOwner?: Maybe<AddBuildingOutput>;
   AddChatAll?: Maybe<AddBuildingOutput>;
   CreateComplain?: Maybe<ComplainOutput>;
@@ -301,6 +115,11 @@ export type MutationCreateRequestArgs = {
 
 
 export type MutationApproveRequestArgs = {
+  requestId?: Maybe<Scalars['ID']>;
+};
+
+
+export type MutationRejectRequestArgs = {
   requestId?: Maybe<Scalars['ID']>;
 };
 
@@ -387,24 +206,8 @@ export type MutationCreateNotificationArgs = {
   userIds?: Maybe<Array<Maybe<Scalars['ID']>>>;
 };
 
-export type Subscription = {
-   __typename?: 'Subscription';
-  ChatOwnerUpdate?: Maybe<Building>;
-  ChatAllUpdate?: Maybe<Building>;
-};
-
-
-export type SubscriptionChatOwnerUpdateArgs = {
-  buildingId?: Maybe<Scalars['ID']>;
-};
-
-
-export type SubscriptionChatAllUpdateArgs = {
-  buildingId?: Maybe<Scalars['ID']>;
-};
-
 export type Query = {
-   __typename?: 'Query';
+  __typename?: 'Query';
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getUserById?: Maybe<User>;
   getUser?: Maybe<User>;
@@ -451,11 +254,215 @@ export type QueryGetBuildingByIdArgs = {
   buildingId?: Maybe<Scalars['ID']>;
 };
 
-export enum CacheControlScope {
-  Public = 'PUBLIC',
-  Private = 'PRIVATE'
-}
+export type Subscription = {
+  __typename?: 'Subscription';
+  ChatOwnerUpdate?: Maybe<Building>;
+  ChatAllUpdate?: Maybe<Building>;
+};
 
+
+export type SubscriptionChatOwnerUpdateArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type SubscriptionChatAllUpdateArgs = {
+  buildingId?: Maybe<Scalars['ID']>;
+};
+
+
+export type AddBuildingOutput = {
+  __typename?: 'addBuildingOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Building>;
+};
+
+export type AddRoomOutput = {
+  __typename?: 'addRoomOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Room>;
+};
+
+export type Agent = {
+  __typename?: 'agent';
+  _id?: Maybe<Scalars['ID']>;
+  userId?: Maybe<User>;
+  buildings?: Maybe<Array<Maybe<Buildings>>>;
+  createdDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type Booking = {
+  __typename?: 'booking';
+  _id?: Maybe<Scalars['ID']>;
+  booking?: Maybe<Scalars['String']>;
+  userId?: Maybe<User>;
+  type?: Maybe<Scalars['String']>;
+  building?: Maybe<Building>;
+  date?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Int']>;
+};
+
+export type BookingOutput = {
+  __typename?: 'bookingOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Booking>;
+};
+
+export type Building = {
+  __typename?: 'building';
+  _id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  agentId?: Maybe<Agent>;
+  ownersId?: Maybe<Owner>;
+  status?: Maybe<Scalars['Boolean']>;
+  rooms?: Maybe<Array<Maybe<Rooms>>>;
+  message?: Maybe<Array<Maybe<Message>>>;
+  messageOwner?: Maybe<Array<Maybe<Message>>>;
+};
+
+export type Buildings = {
+  __typename?: 'buildings';
+  _id?: Maybe<Scalars['ID']>;
+  buildingId?: Maybe<Building>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type Complain = {
+  __typename?: 'complain';
+  _id?: Maybe<Scalars['ID']>;
+  complain?: Maybe<Scalars['String']>;
+  userId?: Maybe<User>;
+  building?: Maybe<Building>;
+  url?: Maybe<Scalars['String']>;
+  roomId?: Maybe<Room>;
+  status?: Maybe<Scalars['Int']>;
+};
+
+export type ComplainOutput = {
+  __typename?: 'complainOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Complain>;
+};
+
+export type Contractors = {
+  __typename?: 'contractors';
+  _id?: Maybe<Scalars['ID']>;
+  userId?: Maybe<User>;
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  phoneNo?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+};
+
+export type Message = {
+  __typename?: 'message';
+  userId?: Maybe<User>;
+  messageType?: Maybe<Scalars['Int']>;
+  message?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type Notification = {
+  __typename?: 'notification';
+  notification?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  userId?: Maybe<User>;
+  date?: Maybe<Scalars['String']>;
+};
+
+export type Owner = {
+  __typename?: 'owner';
+  _id?: Maybe<Scalars['ID']>;
+  userId?: Maybe<User>;
+  buildings?: Maybe<Array<Maybe<Buildings>>>;
+  rooms?: Maybe<Array<Maybe<Rooms>>>;
+  createdDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type RegisterData = {
+  __typename?: 'registerData';
+  user?: Maybe<User>;
+  token?: Maybe<Scalars['String']>;
+};
+
+export type RegisterOutput = {
+  __typename?: 'registerOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<RegisterData>;
+};
+
+export type Request = {
+  __typename?: 'request';
+  _id?: Maybe<Scalars['ID']>;
+  notification?: Maybe<Scalars['String']>;
+  notificationType?: Maybe<Scalars['Int']>;
+  userId?: Maybe<User>;
+  building?: Maybe<Building>;
+  roomId?: Maybe<Room>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type RequestOutput = {
+  __typename?: 'requestOutput';
+  Errors?: Maybe<Array<Maybe<Error>>>;
+  Data?: Maybe<Request>;
+};
+
+export type Room = {
+  __typename?: 'room';
+  _id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  building?: Maybe<Building>;
+  ownersId?: Maybe<Owner>;
+  tenantId?: Maybe<Tenant>;
+  tenantsHistory?: Maybe<Array<Maybe<TenantsHistory>>>;
+  createdDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type Rooms = {
+  __typename?: 'rooms';
+  roomId?: Maybe<Room>;
+};
+
+export type RoomsInput = {
+  name?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+};
+
+export type Tenant = {
+  __typename?: 'tenant';
+  _id?: Maybe<Scalars['ID']>;
+  userId?: Maybe<User>;
+  roomId?: Maybe<Room>;
+  createdDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type TenantsHistory = {
+  __typename?: 'tenantsHistory';
+  _Id?: Maybe<Scalars['ID']>;
+  tenantsId?: Maybe<Tenant>;
+  joinedDate?: Maybe<Scalars['String']>;
+  removeDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Boolean']>;
+};
+
+export type User = {
+  __typename?: 'user';
+  _id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  userType?: Maybe<Scalars['Int']>;
+  createdDate?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['Boolean']>;
+};
 
 export type RegisterUserMutationVariables = {
   name?: Maybe<Scalars['String']>;
@@ -1085,6 +1092,22 @@ export type ApproveRequestMutationVariables = {
 export type ApproveRequestMutation = (
   { __typename?: 'Mutation' }
   & { ApproveRequest?: Maybe<(
+    { __typename?: 'requestOutput' }
+    & { Errors?: Maybe<Array<Maybe<(
+      { __typename?: 'Error' }
+      & Pick<Error, 'error' | 'message'>
+    )>>> }
+  )> }
+);
+
+export type RejectRequestMutationVariables = {
+  requestId?: Maybe<Scalars['ID']>;
+};
+
+
+export type RejectRequestMutation = (
+  { __typename?: 'Mutation' }
+  & { RejectRequest?: Maybe<(
     { __typename?: 'requestOutput' }
     & { Errors?: Maybe<Array<Maybe<(
       { __typename?: 'Error' }
@@ -2141,6 +2164,24 @@ export const ApproveRequestDocument = gql`
   })
   export class ApproveRequestGQL extends Apollo.Mutation<ApproveRequestMutation, ApproveRequestMutationVariables> {
     document = ApproveRequestDocument;
+    
+  }
+export const RejectRequestDocument = gql`
+    mutation RejectRequest($requestId: ID) {
+  RejectRequest(requestId: $requestId) {
+    Errors {
+      error
+      message
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RejectRequestGQL extends Apollo.Mutation<RejectRequestMutation, RejectRequestMutationVariables> {
+    document = RejectRequestDocument;
     
   }
 export const GetRequestForOwnerDocument = gql`
